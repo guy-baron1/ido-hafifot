@@ -4,6 +4,13 @@ document.addEventListener('DOMContentLoaded', function(event) {
     button.onclick = generateTask;
   }) 
 
+  document.addEventListener('click', event => {
+    if (event.target.classList.contains('removeTask')) {
+        const id = event.target.parentElement.id;
+        console.log("sending" + id)
+        list.removeTask(id);
+    }
+})
 function generateTask() {
     var todoText = document.getElementById("new-task-text");
     list.addTask(todoText.value);

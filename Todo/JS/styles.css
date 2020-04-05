@@ -12,3 +12,7 @@ h1 {
 .task {
     display: block;
 }
+
+.removeTask {
+    margin-left: 1em;
+}
