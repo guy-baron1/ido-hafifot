@@ -1,3 +1,4 @@
+var list = new TaskList();
 document.addEventListener('DOMContentLoaded', function(event) {
     var button = document.getElementById("new-task-button");
     button.onclick = generateTask;
@@ -5,10 +6,8 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
 function generateTask() {
     var todoText = document.getElementById("new-task-text");
-    var listElement = document.getElementById("tasks");
-    var taskdiv = document.createElement("div");
-    var textElement = document.createTextNode(todoText.value);
-    taskdiv.className += 'task';
-    taskdiv.appendChild(textElement);
-    listElement.appendChild(taskdiv);
+    list.addTask(todoText.value);
+    list.printTasks();
+  //  console.log(list.Tasks[0])
+    
 }
