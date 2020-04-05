@@ -4,3 +4,11 @@ h1 {
     
 }
 /* Green Is Not A Creative color */
+
+#tasks {
+    display: block;
+}
+
+.task {
+    display: block;
+}
