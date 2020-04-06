@@ -16,3 +16,7 @@ h1 {
 .removeTask {
     margin-left: 1em;
 }
+
+.checked {
+    text-decoration: line-through;
+}

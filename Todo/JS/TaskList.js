@@ -21,10 +21,18 @@ class TaskList {
         for (let i = 0; i < this.tasks.length; i++) {
             if(this.tasks[i].id == id)
             {
-                console.log("hello")
                 this.tasks.splice(i, 1);
             }
         }
         this.printTasks();
+    }
+
+    checkTask(id) {
+        for (let i = 0; i < this.tasks.length; i++) {
+            if(this.tasks[i].id == id)
+            {
+                this.tasks[i].checkTask();
+            }
+        }
     }
 }
