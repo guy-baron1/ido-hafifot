@@ -23,23 +23,41 @@ namespace TodoServer_DL
             return true;
         }
 
-        public bool CheckTask(bool checkStatus,int id)
+        public bool CheckTask(bool checkStatus, int id)
         {
-            throw new NotImplementedException();
+
+            TodoTask task = GetTaskById(id);
+            if (task != null)
+            {
+                task.IsChecked = checkStatus;
+                return true;
+            }
+            return false;
         }
 
 
         public bool RemoveTask(int id)
         {
-            foreach(TodoTask task in _tasks)
+            TodoTask task = GetTaskById(id);
+            if (task != null)
             {
-                if(task.Id == id)
-                {
-                    bool succes = _tasks.Remove(task);
-                    return succes;
-                }
+                bool succes = _tasks.Remove(task);
+                return succes;
             }
             return false;
+        }
+
+        public TodoTask GetTaskById(int id)
+        {
+            foreach (TodoTask task in _tasks)
+            {
+                if (task.Id == id)
+                {
+                    return task;
+                }
+
+            }
+            return null;
         }
     }
 }

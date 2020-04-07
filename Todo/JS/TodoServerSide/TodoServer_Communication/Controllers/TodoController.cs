@@ -44,5 +44,19 @@ namespace ServerCommunication.Controllers
                 return BadRequest();
             }
         }
+
+        [HttpPut("{id}")]
+        public ActionResult CheckTask(int id,bool isChecked)
+        {
+            bool status = _currentDB.CheckTask(isChecked,id);
+            if (status)
+            {
+                return Ok(id + " Check Is Now: " + isChecked);
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
     }
 }
