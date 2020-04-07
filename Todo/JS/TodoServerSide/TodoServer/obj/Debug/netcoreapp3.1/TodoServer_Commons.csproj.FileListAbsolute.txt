@@ -1,0 +1,9 @@
+C:\Projects\Hafifot\Todo\JS\TodoServerSide\TodoServer\bin\Debug\netcoreapp3.1\TodoServer_Commons.deps.json
+C:\Projects\Hafifot\Todo\JS\TodoServerSide\TodoServer\bin\Debug\netcoreapp3.1\TodoServer_Commons.dll
+C:\Projects\Hafifot\Todo\JS\TodoServerSide\TodoServer\bin\Debug\netcoreapp3.1\TodoServer_Commons.pdb
+C:\Projects\Hafifot\Todo\JS\TodoServerSide\TodoServer\obj\Debug\netcoreapp3.1\TodoServer_Commons.csproj.CoreCompileInputs.cache
+C:\Projects\Hafifot\Todo\JS\TodoServerSide\TodoServer\obj\Debug\netcoreapp3.1\TodoServer_Commons.AssemblyInfoInputs.cache
+C:\Projects\Hafifot\Todo\JS\TodoServerSide\TodoServer\obj\Debug\netcoreapp3.1\TodoServer_Commons.AssemblyInfo.cs
+C:\Projects\Hafifot\Todo\JS\TodoServerSide\TodoServer\obj\Debug\netcoreapp3.1\TodoServer_Commons.dll
+C:\Projects\Hafifot\Todo\JS\TodoServerSide\TodoServer\obj\Debug\netcoreapp3.1\TodoServer_Commons.pdb
+C:\Projects\Hafifot\Todo\JS\TodoServerSide\TodoServer\obj\Debug\netcoreapp3.1\TodoServer_Commons.csprojAssemblyReference.cache

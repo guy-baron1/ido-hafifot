@@ -1,0 +1,12 @@
+C:\Projects\Hafifot\Todo\JS\TodoServerSide\TodoServer_DL\bin\Debug\netcoreapp3.1\TodoServer_DL.deps.json
+C:\Projects\Hafifot\Todo\JS\TodoServerSide\TodoServer_DL\bin\Debug\netcoreapp3.1\TodoServer_DL.dll
+C:\Projects\Hafifot\Todo\JS\TodoServerSide\TodoServer_DL\bin\Debug\netcoreapp3.1\TodoServer_DL.pdb
+C:\Projects\Hafifot\Todo\JS\TodoServerSide\TodoServer_DL\bin\Debug\netcoreapp3.1\TodoServer_Commons.dll
+C:\Projects\Hafifot\Todo\JS\TodoServerSide\TodoServer_DL\bin\Debug\netcoreapp3.1\TodoServer_Commons.pdb
+C:\Projects\Hafifot\Todo\JS\TodoServerSide\TodoServer_DL\obj\Debug\netcoreapp3.1\TodoServer_DL.csprojAssemblyReference.cache
+C:\Projects\Hafifot\Todo\JS\TodoServerSide\TodoServer_DL\obj\Debug\netcoreapp3.1\TodoServer_DL.csproj.CoreCompileInputs.cache
+C:\Projects\Hafifot\Todo\JS\TodoServerSide\TodoServer_DL\obj\Debug\netcoreapp3.1\TodoServer_DL.AssemblyInfoInputs.cache
+C:\Projects\Hafifot\Todo\JS\TodoServerSide\TodoServer_DL\obj\Debug\netcoreapp3.1\TodoServer_DL.AssemblyInfo.cs
+C:\Projects\Hafifot\Todo\JS\TodoServerSide\TodoServer_DL\obj\Debug\netcoreapp3.1\TodoServer_DL.csproj.CopyComplete
+C:\Projects\Hafifot\Todo\JS\TodoServerSide\TodoServer_DL\obj\Debug\netcoreapp3.1\TodoServer_DL.dll
+C:\Projects\Hafifot\Todo\JS\TodoServerSide\TodoServer_DL\obj\Debug\netcoreapp3.1\TodoServer_DL.pdb
