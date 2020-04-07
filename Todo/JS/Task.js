@@ -1,10 +1,14 @@
 class Task {
-    constructor(data,id){
+    constructor(data,id,checked){
         this.text = data;
         this.id = id;
         this.listElement = document.getElementById("tasks");
         this.divObject = undefined;
-        this.checked = false
+        this.checked = false;
+        if(checked !== undefined)
+        {
+            this.checked = checked;
+        }
     }
     displayTask() {
         var taskdiv = document.createElement("div");
@@ -15,6 +19,7 @@ class Task {
         var checkbox = document.createElement("INPUT");
         checkbox.setAttribute("type","checkbox");
         checkbox.className = "checkTask"
+        checkbox.checked = this.checked;
 
         var textElement = document.createTextNode(this.text);
 

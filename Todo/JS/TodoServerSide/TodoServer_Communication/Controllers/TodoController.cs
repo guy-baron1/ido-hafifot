@@ -12,9 +12,9 @@ namespace ServerCommunication.Controllers
     {
         private static IDB _currentDB = new RamDB();
 
-        public ActionResult<IEnumerable<TodoTask>> GetAllTasks()
+        public IEnumerable<TodoTask> GetAllTasks()
         {
-            return Ok(_currentDB.GetTasks());
+            return _currentDB.GetTasks();
         }
 
         [HttpPut]

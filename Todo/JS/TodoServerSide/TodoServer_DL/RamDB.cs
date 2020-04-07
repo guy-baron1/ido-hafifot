@@ -35,7 +35,6 @@ namespace TodoServer_DL
             return false;
         }
 
-
         public bool RemoveTask(int id)
         {
             TodoTask task = GetTaskById(id);
