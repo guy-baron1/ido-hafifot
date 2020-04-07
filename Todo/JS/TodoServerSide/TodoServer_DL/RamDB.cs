@@ -31,7 +31,15 @@ namespace TodoServer_DL
 
         public bool RemoveTask(int id)
         {
-            throw new NotImplementedException();
+            foreach(TodoTask task in _tasks)
+            {
+                if(task.Id == id)
+                {
+                    bool succes = _tasks.Remove(task);
+                    return succes;
+                }
+            }
+            return false;
         }
     }
 }

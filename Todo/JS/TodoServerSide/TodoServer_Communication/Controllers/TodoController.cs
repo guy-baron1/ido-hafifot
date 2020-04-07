@@ -31,10 +31,18 @@ namespace ServerCommunication.Controllers
             }
         }
         
-        [HttpDelete("{id}")]
-        public ActionResult RemoveTask(int id)
+        [HttpDelete]
+        public ActionResult RemoveTask(int Id)
         {
-            return Ok("Removed" + id);
+            bool status = _currentDB.RemoveTask(Id);
+            if (status)
+            {
+                return Ok("Removed" + Id);
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
     }
 }
