@@ -32,6 +32,7 @@ class TaskList {
         this.tasks.push(newTask);
     }
     removeTask(id) {
+        this.communicator.removeTask(id);
         var listElement = document.getElementById(id);
         listElement.parentNode.removeChild(listElement);
         for (let i = 0; i < this.tasks.length; i++) {
@@ -47,7 +48,10 @@ class TaskList {
         for (let i = 0; i < this.tasks.length; i++) {
             if(this.tasks[i].id == id)
             {
-                this.tasks[i].checkTask();
+                let isChecked = this.tasks[i].checkTask();
+                console.log(isChecked);
+
+                this.communicator.checkTask(id,isChecked);
             }
         }
     }
