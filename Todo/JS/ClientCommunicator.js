@@ -1,7 +1,6 @@
 class ClientCommunicator {
 
     async getTasks() {
-        console.log("hello2")
         let response = await fetch(apiUrl, {
             method: 'GET',
             headers: {
@@ -11,8 +10,22 @@ class ClientCommunicator {
         let data = await response.json()
         if(response.status == 200)
         {
-            console.log(data);
             return data;
         }
     }
+
+    async addTask(newTask) {
+        let response = await fetch(apiUrl, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newTask)
+        });
+        let data = await response.json()
+        if(response.status == 200)
+        {
+            console.log("added succesfully")
+        }
+    } 
 }
