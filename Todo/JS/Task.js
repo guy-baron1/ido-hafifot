@@ -5,28 +5,35 @@ class Task {
         this.listElement = document.getElementById("tasks");
         this.divObject = undefined;
         this.checked = false;
-        if(checked !== undefined)
-        {
+        if(checked !== undefined) {
             this.checked = checked;
         }
     }
-    displayTask() {
-        var taskdiv = document.createElement("div");
+    displayTask(list) {
+        let taskdiv = document.createElement("div");
         taskdiv.className += 'task';
         taskdiv.id = this.id;
         this.divObject = taskdiv;
+        let listnerId = this.id;
+        let listnerIsChecked = this.checked;
 
-        var checkbox = document.createElement("INPUT");
+        let checkbox = document.createElement("INPUT");
         checkbox.setAttribute("type","checkbox");
         checkbox.className = "checkTask"
         checkbox.checked = this.checked;
+        checkbox.addEventListener('click', function(){
+            list.checkTask(listnerId,listnerIsChecked)})
+ 
         this.taskLineThrough(this.checked);
 
-        var textElement = document.createTextNode(this.text);
+        let textElement = document.createTextNode(this.text);
 
-        var deleteButton = document.createElement("button");
+        let deleteButton = document.createElement("button");
         deleteButton.className = "removeTask"
         deleteButton.textContent = "Remove";
+        deleteButton.addEventListener('click', function(){
+           list.removeTask(listnerId)})
+
         taskdiv.appendChild(checkbox);
         taskdiv.appendChild(textElement);
         taskdiv.appendChild(deleteButton);
@@ -36,21 +43,17 @@ class Task {
 
 
     checkTask() {
-        console.log(this.checked);
         this.checked = !this.checked;
         this.taskLineThrough(this.checked);
-        console.log(this.checked);
         return(this.checked);
     }
     
     taskLineThrough(checked) {
         if(this.checked) {
             this.divObject.className += " checked";
-            console.log("checked");
         }
         else {
             this.divObject.className = "checkTask";
-            console.log("unchecked");
         }
     }
     

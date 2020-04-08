@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using TodoServer_Commons;
 using System.Collections.Generic;
 using TodoServer_DL;
+using System;
+
 namespace ServerCommunication.Controllers
 {
     [ApiController]
@@ -17,7 +19,7 @@ namespace ServerCommunication.Controllers
             return _currentDB.GetTasks();
         }
 
-        [HttpPut]
+        [HttpPut("Add")]
         public ActionResult AddTask(TodoTask task)
         {
             if (task != null)
@@ -25,38 +27,36 @@ namespace ServerCommunication.Controllers
                 _currentDB.AddTask(task);
                 return Ok("Added Task");
             }
-            else
-            {
-                return BadRequest();
-            }
-        }
-        
-        [HttpDelete]
-        public ActionResult RemoveTask(int Id)
-        {
-            bool status = _currentDB.RemoveTask(Id);
-            if (status)
-            {
-                return Ok("Removed" + Id);
-            }
-            else
-            {
-                return BadRequest();
-            }
+            return BadRequest();
         }
 
-        [HttpPut("{id}")]
-        public ActionResult CheckTask(int id,bool isChecked)
+        [HttpDelete("Delete")]
+        public ActionResult RemoveTask(int Id)
         {
-            bool status = _currentDB.CheckTask(isChecked,id);
-            if (status)
+            try
             {
-                return Ok(id + " Check Is Now: " + isChecked);
+                _currentDB.RemoveTask(Id);
             }
-            else
+            catch (ArgumentException e)
             {
-                return BadRequest();
+                return BadRequest(e.ToString());
             }
+            return Ok("Removed" + Id);
+
+        }
+
+        [HttpPut("Check/{id}")]
+        public ActionResult CheckTask(int id, bool isChecked)
+        {
+            try
+            {
+                _currentDB.CheckTask(isChecked, id);
+            }
+            catch (ArgumentException e)
+            {
+                return BadRequest(e);
+            }
+            return Ok(id + " Check Is Now: " + isChecked);
         }
     }
 }

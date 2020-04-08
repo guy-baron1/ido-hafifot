@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using TodoServer_Commons;
 namespace TodoServer_DL
 {
@@ -17,46 +17,30 @@ namespace TodoServer_DL
             return _tasks;
         }
 
-        public bool AddTask(TodoTask addedTask)
+        public void AddTask(TodoTask addedTask)
         {
             _tasks.Add(addedTask);
-            return true;
         }
 
-        public bool CheckTask(bool checkStatus, int id)
+        public void CheckTask(bool checkStatus, int id)
         {
-
-            TodoTask task = GetTaskById(id);
+            TodoTask task = _tasks.FirstOrDefault<TodoTask>(obj => obj.Id == id);
             if (task != null)
             {
                 task.IsChecked = checkStatus;
-                return true;
             }
-            return false;
+            throw new ArgumentException("No Task With This Id");
         }
 
-        public bool RemoveTask(int id)
+        public void RemoveTask(int id)
         {
-            TodoTask task = GetTaskById(id);
+            TodoTask task = _tasks.FirstOrDefault<TodoTask>(obj => obj.Id == id);
             if (task != null)
             {
                 bool succes = _tasks.Remove(task);
-                return succes;
             }
-            return false;
+            throw new ArgumentException("No Task With This Id");
         }
 
-        public TodoTask GetTaskById(int id)
-        {
-            foreach (TodoTask task in _tasks)
-            {
-                if (task.Id == id)
-                {
-                    return task;
-                }
-
-            }
-            return null;
-        }
     }
 }

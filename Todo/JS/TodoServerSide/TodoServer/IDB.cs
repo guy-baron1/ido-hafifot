@@ -7,8 +7,8 @@ namespace TodoServer_Commons
     public interface IDB
     {
         IEnumerable<TodoTask> GetTasks();
-        bool RemoveTask(int id);
-        bool AddTask(TodoTask addedTask);
-        bool CheckTask(bool checkStatus, int id);
+        void RemoveTask(int id);
+        void AddTask(TodoTask addedTask);
+        void CheckTask(bool checkStatus, int id);
     }
 }
