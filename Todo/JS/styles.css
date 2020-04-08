@@ -1,0 +1,22 @@
+/* Green Is My Favorite Color ^-^*/
+h1 {
+    color: green;
+    
+}
+/* Green Is Not A Creative color */
+
+#tasks {
+    display: block;
+}
+
+.task {
+    display: block;
+}
+
+.removeTask {
+    margin-left: 1em;
+}
+
+.checked {
+    text-decoration: line-through;
+}
