@@ -13,11 +13,9 @@
             <script src="TodoFunc.js"></script>
             <div>
                 <ul>
-                    <li ng-repeat="t in Todos"><input type="checkbox" checked= t.isChecked/>{{  t.text }}</li>
+                    <li ng-repeat="t in Todos"><input type="checkbox" checked= t.isChecked/>{{  t.text }}  <button ng-click="delete(t.id)">Delete</button></li>
                 </ul>
             </div>
         </div>  
     </body>
-
-    
 </html>
