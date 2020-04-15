@@ -1,26 +1,28 @@
 <!DOCTYPE html>
 
-<html ng-app = "todoApp">
+<html ng-app = "todoApp" ng-controller="controller">
+
     <head>
         <link rel="stylesheet" href="style.css">
         <title>Todo Or Not Todo</title>
+        <script src="configuration.js"></script>
+        <script src="ClientCommunicator.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+        <script src="TodoFunc.js"></script>
     </head>
     <body>
-        <div ng-controller="controller">
-            <h1>What Can I Todo For You Tododay?</h1>
-            <input type="text" ng-model="todoText" />
-            <button ng-click= "addTodo()">Add</button>
-            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-            <script src="TodoFunc.js"></script>
-            <div>
-                <ul>
-                    <li ng-repeat="t in Todos" ng-class="{checked: t.isChecked}">
-                        <input type="checkbox" ng-checked= "t.isChecked" ng-click="checkTask(t.id)"/>
-                        {{  t.text }}
-                      <button ng-click="delete(t.id)">Delete</button></li>
-                </ul>
-                <button ng-click="deleteAllChecked()">Delete Checked Tasks</button>
-            </div>
-        </div>  
+        <h1>What Can I Todo For You Tododay?</h1>
+        <input type="text" ng-model="todoText" />
+        <button ng-click= "addTodo()">Add</button>
+
+        <div>
+            <ul>
+                <li ng-repeat="t in Todos" ng-class="{checked: t.isChecked}">
+                <input type="checkbox" ng-checked= "t.isChecked" ng-click="checkTask(t.id)"/>
+                {{  t.text }}
+                <button ng-click="delete(t.id)">Delete</button></li>
+            </ul>
+            <button ng-click="deleteAllChecked()">Delete Checked Tasks</button>
+        </div>
     </body>
 </html>
