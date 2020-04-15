@@ -16,4 +16,8 @@ TodoApp.controller('controller', function($scope) {
         
     }
 
+    $scope.deleteAllChecked = function(id) {
+       $scope.Todos = $scope.Todos.filter(task => task.isChecked != true);
+    }
+
 });
