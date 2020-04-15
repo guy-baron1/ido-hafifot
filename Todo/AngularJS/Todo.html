@@ -2,6 +2,7 @@
 
 <html ng-app = "todoApp">
     <head>
+        <link rel="stylesheet" href="style.css">
         <title>Todo Or Not Todo</title>
     </head>
     <body>
@@ -13,7 +14,10 @@
             <script src="TodoFunc.js"></script>
             <div>
                 <ul>
-                    <li ng-repeat="t in Todos"><input type="checkbox" checked= t.isChecked/>{{  t.text }}  <button ng-click="delete(t.id)">Delete</button></li>
+                    <li ng-repeat="t in Todos" ng-class="{checked: t.isChecked}">
+                        <input type="checkbox" ng-checked= "t.isChecked" ng-click="checkTask(t.id)"/>
+                        {{  t.text }}
+                      <button ng-click="delete(t.id)">Delete</button></li>
                 </ul>
             </div>
         </div>  

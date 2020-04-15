@@ -10,4 +10,10 @@ TodoApp.controller('controller', function($scope) {
     $scope.delete = function(id) {
         $scope.Todos = $scope.Todos.filter(task => task.id != id);
     }
+
+    $scope.checkTask = function(id) {
+        $scope.Todos.find(task => task.id == id).isChecked = !$scope.Todos.find(task => task.id == id).isChecked;
+        
+    }
+
 });
