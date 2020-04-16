@@ -29,7 +29,10 @@ namespace TodoServer_DL
             {
                 task.IsChecked = checkStatus;
             }
-            throw new ArgumentException("No Task With This Id");
+            else
+            {
+                throw new ArgumentException("No Task With This Id");
+            }
         }
 
         public void RemoveTask(int id)
@@ -39,7 +42,10 @@ namespace TodoServer_DL
             {
                 bool succes = _tasks.Remove(task);
             }
-            throw new ArgumentException("No Task With This Id");
+            else
+            {
+                throw new ArgumentException("No Task With This Id");
+            }
         }
 
     }

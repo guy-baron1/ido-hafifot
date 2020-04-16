@@ -6,7 +6,6 @@
         <link rel="stylesheet" href="style.css">
         <title>Todo Or Not Todo</title>
         <script src="configuration.js"></script>
-        <script src="ClientCommunicator.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
         <script src="TodoFunc.js"></script>
     </head>
@@ -16,7 +15,7 @@
         <button ng-click= "addTodo()">Add</button>
 
         <div>
-            <ul>
+            <ul ng-init="getFromServer()">
                 <li ng-repeat="t in Todos" ng-class="{checked: t.isChecked}">
                 <input type="checkbox" ng-checked= "t.isChecked" ng-click="checkTask(t.id)"/>
                 {{  t.text }}
