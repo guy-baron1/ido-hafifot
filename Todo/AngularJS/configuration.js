@@ -1,8 +1,9 @@
 let apiUrl = "http://localhost:51875/api/todo";
 let addTaskUrl = "http://localhost:51875/api/todo/add";
 let deleteTaskUrl = "http://localhost:51875/api/todo/delete/?Id=";
-let checkTaskUrl = "http://localhost:51875/api/todo/check/"
+let checkTaskUrl = "http://localhost:51875/api/todo/check/";
+let deleteCheckedUrl = "http://localhost:51875/api/todo/DeleteChecked";
 let configHeader = {headers: {
+    'Accept': 'application/json',
     'Content-Type': 'application/json',
-    'Accept': 'application/json'
 }}

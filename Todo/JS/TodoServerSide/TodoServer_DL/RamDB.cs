@@ -48,5 +48,16 @@ namespace TodoServer_DL
             }
         }
 
+        public void UpdateTaskList(IEnumerable<TodoTask> newList)
+        {
+            if(newList != null)
+            {
+                _tasks = newList.ToList();
+            }
+            else
+            {
+                throw new ArgumentException("Bad Task List");
+            }
+        }
     }
 }

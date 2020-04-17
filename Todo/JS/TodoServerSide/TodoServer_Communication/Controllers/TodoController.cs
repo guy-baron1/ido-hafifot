@@ -44,6 +44,20 @@ namespace ServerCommunication.Controllers
             return Ok("Removed" + Id);
 
         }
+        [HttpPut("DeleteChecked")]
+        public ActionResult RemoveAllCheckedTask(List<TodoTask> newList)
+        {
+            try
+            {
+                _currentDB.UpdateTaskList(newList);
+            }
+            catch (ArgumentException e)
+            {
+                return BadRequest(e.ToString());
+            }
+            return Ok("Removed");
+
+        }
 
         [HttpPut("Check/{id}")]
         public ActionResult CheckTask(int id, bool isChecked)

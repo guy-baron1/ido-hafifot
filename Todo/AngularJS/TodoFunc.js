@@ -32,6 +32,12 @@ TodoApp.controller('controller', function($scope,$http) {
 
     $scope.deleteAllChecked = function(id) {
        $scope.Todos = $scope.Todos.filter(task => task.isChecked != true);
+       let data = $scope.Todos;
+       console.log(angular.toJson(data))
+       console.log(configHeader)
+       $http.put(deleteCheckedUrl, angular.toJson(data), configHeader).catch(function onError(error) {
+        console.log(error);         
+    });
     }
 
 });
