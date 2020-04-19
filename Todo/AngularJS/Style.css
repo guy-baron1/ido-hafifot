@@ -11,6 +11,10 @@ md-content {
     height: inherit;
 }
 
+.md-toolbar-tools {
+    justify-content: space-between;
+}
+
 .vertical-container {
     max-height: 75vh;
     min-height: 75vh;
@@ -26,7 +30,7 @@ md-content {
 
 .delete-button {
     color : red;
-    align-self: flex-end;
+    justify-content: space-between
 }
 
 .top-menu {
