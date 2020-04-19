@@ -11,5 +11,6 @@ namespace TodoServer_Commons
         void AddTask(TodoTask addedTask);
         void CheckTask(bool checkStatus, int id);
         void UpdateTaskList(IEnumerable<TodoTask> newList);
+        void EditTask(string newText, int id);
     }
 }

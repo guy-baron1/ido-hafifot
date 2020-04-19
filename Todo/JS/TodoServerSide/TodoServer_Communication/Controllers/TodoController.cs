@@ -72,5 +72,19 @@ namespace ServerCommunication.Controllers
             }
             return Ok(id + " Check Is Now: " + isChecked);
         }
+
+        [HttpPut("Edit/{id}")]
+        public ActionResult CheckTask(int id, string newText)
+        {
+            try
+            {
+                _currentDB.EditTask(newText, id);
+            }
+            catch (ArgumentException e)
+            {
+                return BadRequest(e);
+            }
+            return Ok(id + " String Is Now: " + newText);
+        }
     }
 }

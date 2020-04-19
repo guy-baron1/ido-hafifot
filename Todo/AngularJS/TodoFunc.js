@@ -58,6 +58,9 @@ TodoApp.controller('controller', function ($scope, $http, $mdDialog) {
 
     $scope.editTask = function (id, editResult) {
         $scope.Todos.find(task => task.id == id).text = editResult;
+        $http.put(EditUrl + id + "?newText=" + editResult, configHeader).catch(function onError(error) {
+            console.log(error);
+        });
     }
 
     $scope.deleteAllChecked = function (id) {

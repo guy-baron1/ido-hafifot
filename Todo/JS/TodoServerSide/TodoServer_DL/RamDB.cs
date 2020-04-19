@@ -59,5 +59,18 @@ namespace TodoServer_DL
                 throw new ArgumentException("Bad Task List");
             }
         }
+
+        public void EditTask(string newText, int id)
+        {
+            TodoTask task = _tasks.FirstOrDefault<TodoTask>(obj => obj.Id == id);
+            if (task != null)
+            {
+                task.Text = newText;
+            }
+            else
+            {
+                throw new ArgumentException("No Task With This Id");
+            }
+        }
     }
 }
