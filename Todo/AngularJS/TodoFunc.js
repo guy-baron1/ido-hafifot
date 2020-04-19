@@ -22,8 +22,7 @@ TodoApp.controller('controller', function ($scope, $http, $mdDialog) {
                 $scope.Todos = angular.fromJson(response.data);
                 $scope.idCount = $scope.Todos.length;
                 console.log($scope.idCount);
-            }
-        );
+            });
 
     }
 
@@ -80,7 +79,7 @@ TodoApp.controller('controller', function ($scope, $http, $mdDialog) {
         }
     }
 
-    $scope.updateTodosServer = function(data) {
+    $scope.updateTodosServer = function (data) {
         $http.put(deleteCheckedUrl, angular.toJson(data), configHeader).catch(function onError(error) {
             console.log(error);
         });
