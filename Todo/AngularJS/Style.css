@@ -23,9 +23,19 @@ md-content {
 
 }
 
-.task-card {
+.taskItem {
     margin-top: 2.5vh;
+    display: inline-flex;
+    width: 100%;
+}
+
+.orderButtons {
+    display: grid;
+}
+
+.task-card {
     background-color: rgb(109, 109, 109);
+    width: 100%;
 }
 
 .delete-button {

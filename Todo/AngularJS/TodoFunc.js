@@ -10,12 +10,12 @@ var TodoApp = angular.module('todoApp', ['ngMaterial', 'ngMessages'])
             .warnPalette('amber').dark();
     });
 
-    
 
-TodoApp.controller('controller', function ($scope, $http,$mdDialog) {
+
+TodoApp.controller('controller', function ($scope, $http, $mdDialog) {
     $scope.Todos = [];
     $scope.idCount = 0;
- 
+
     $scope.getFromServer = function () {
         $http.get(apiUrl).then(
             function (response) {
@@ -26,11 +26,6 @@ TodoApp.controller('controller', function ($scope, $http,$mdDialog) {
         );
 
     }
-
-    $scope.querySearch = function(query) {
-        var results = query.toLowerCase() ? $scope.Todos.filter(query.toLowerCase()) : $scope.Todos
-          return results;
-      }
 
     $scope.addTodo = function () {
         let newTask = { text: $scope.todoText, isChecked: false, id: $scope.idCount };
@@ -48,7 +43,7 @@ TodoApp.controller('controller', function ($scope, $http,$mdDialog) {
         $http.put(checkTaskUrl + id + "?isChecked=" + !isChecked, configHeader);
     }
 
-    $scope.showPrompt = function (ev,id) {
+    $scope.showPrompt = function (ev, id) {
         // Appending dialog to document.body to cover sidenav in docs app
         var confirm = $mdDialog.prompt()
             .title('Edit Your Task')
@@ -58,20 +53,31 @@ TodoApp.controller('controller', function ($scope, $http,$mdDialog) {
             .ok('Edit')
             .cancel('Cancel');
 
-        $mdDialog.show(confirm).then(function(result) {$scope.editTask(id,result)});
+        $mdDialog.show(confirm).then(function (result) { $scope.editTask(id, result) });
     };
 
-     $scope.editTask = function(id, editResult) {
-         console.log(id);
-         console.log(editResult);
+    $scope.editTask = function (id, editResult) {
         $scope.Todos.find(task => task.id == id).text = editResult;
-     }
+    }
 
     $scope.deleteAllChecked = function (id) {
         $scope.Todos = $scope.Todos.filter(task => task.isChecked != true);
         let data = $scope.Todos;
-        console.log(angular.toJson(data))
-        console.log(configHeader)
+        $scope.updateTodosServer(data);
+    }
+
+    $scope.switch = function (id, direction) {
+        let index = $scope.Todos.findIndex(task => task.id == id)
+        if (!((index === 0 && direction === -1) || (index === ($scope.Todos.length - 1) && direction === 1))) {
+            let temp = $scope.Todos[index];
+            $scope.Todos[index] = $scope.Todos[index + direction];
+            $scope.Todos[index + direction] = temp;
+            let data = $scope.Todos;
+            $scope.updateTodosServer(data);
+        }
+    }
+
+    $scope.updateTodosServer = function(data) {
         $http.put(deleteCheckedUrl, angular.toJson(data), configHeader).catch(function onError(error) {
             console.log(error);
         });

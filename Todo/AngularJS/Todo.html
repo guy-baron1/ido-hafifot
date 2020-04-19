@@ -24,13 +24,8 @@
             <div class="md-toolbar-tools toolbar">
                 <h1>What Can I Todo For You Tododay?</h1>
                 <label>Search For Task</label>
-                <md-autocomplete 
-                md-no-cache="true" 
-                md-selected-item="selectedItem"
-                md-input-minlength="2"
-                 md-items="t in Todos | filter:searchText"
-                  md-search-text="searchText"
-                   md-item-text="t.text">
+                <md-autocomplete md-no-cache="true" md-selected-item="selectedItem" md-input-minlength="2"
+                    md-items="t in Todos | filter:searchText" md-search-text="searchText" md-item-text="t.text">
                     <span>{{ t.text }}</span>
                     <md-not-found>
                         No Such Task.
@@ -52,25 +47,32 @@
             <md-card class="vertical-container delete-button">
                 <md-virtual-repeat-container class="vertical-container" ng-init="getFromServer()">
                     <div md-virtual-repeat="t in Todos | filter:searchText">
-                        <md-card class="task-card" style="background-color: rgb(109, 109, 109);">
-                            <md-card-content>
-                                <md-checkbox ng-checked="t.isChecked" ng-click="checkTask(t.id)">
-                                    <span ng-class="{checked: t.isChecked}">{{  t.text }}</span>
-                                </md-checkbox>
-                                <md-button class="md-icon-button" ng-click="showPrompt($event,t.id)">
-                                    <md-icon><i class="material-icons">edit</i></md-icon>
+                        <div class="taskItem">
+                            <div clas="orderButtons">
+                                <md-button class="md-icon-button  md-accent" ng-click="switch(t.id, -1)">
+                                    <md-icon><i class="material-icons">arrow_upward</i></md-icon>
                                 </md-button>
-                                <md-button class="md-icon-button " ng-click="delete(t.id)">
-                                    <md-icon><i class="material-icons">delete</i></md-icon>
+                                <md-button class="md-icon-button  md-accent" ng-click="switch(t.id, 1)">
+                                    <md-icon><i class="material-icons">arrow_downward</i></md-icon>
                                 </md-button>
-                            </md-card-content>
-                        </md-card>
-                        <div>
+                            </div>
+                            <md-card class="task-card" style="background-color: rgb(109, 109, 109);">
+                                <md-card-content>
+                                    <md-checkbox ng-checked="t.isChecked" ng-click="checkTask(t.id)">
+                                        <span ng-class="{checked: t.isChecked}">{{  t.text }}</span>
+                                    </md-checkbox>
+                                    <md-button class="md-icon-button" ng-click="showPrompt($event,t.id)">
+                                        <md-icon><i class="material-icons">edit</i></md-icon>
+                                    </md-button>
+                                    <md-button class="md-icon-button " ng-click="delete(t.id)">
+                                        <md-icon><i class="material-icons">delete</i></md-icon>
+                                    </md-button>
+                                </md-card-content>
+                            </md-card>
+                        </div>
                 </md-virtual-repeat-container>
             </md-card>
-
         </div>
-
     </md-content>
 </body>
 
