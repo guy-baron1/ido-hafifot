@@ -1,3 +1,46 @@
 .checked {
     text-decoration: line-through;
 }
+
+md-button {
+    margin-top: 16px;
+    margin-bottom: 16px; 
+}
+
+md-content {
+    height: inherit;
+}
+
+.vertical-container {
+    max-height: 75vh;
+    min-height: 75vh;
+    width: 75%;
+    align-items: center;
+
+}
+
+.task-card {
+    margin-top: 2.5vh;
+    background-color: rgb(109, 109, 109);
+}
+
+.delete-button {
+    color : red;
+    align-self: flex-end;
+}
+
+.top-menu {
+    margin-left: 3vh;
+}
+
+.main-card {
+    display: flex;
+    justify-content: center;
+}
+
+ /* .repeated-item {
+    border-bottom: 1px solid #ddd;
+    box-sizing: border-box;;
+    height: 5vh;
+    padding-top: 2vh; 
+}  */
