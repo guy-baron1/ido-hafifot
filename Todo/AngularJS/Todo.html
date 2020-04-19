@@ -23,13 +23,22 @@
         <md-toolbar class="md-primary">
             <div class="md-toolbar-tools toolbar">
                 <h1>What Can I Todo For You Tododay?</h1>
-                <md-input-container>
-                    <label>Search For Task</label>
-                    <input type="text" ng-model="searchText"/>
-                </md-input-container>
+                <label>Search For Task</label>
+                <md-autocomplete 
+                md-no-cache="true" 
+                md-selected-item="selectedItem"
+                md-input-minlength="2"
+                 md-items="t in Todos | filter:searchText"
+                  md-search-text="searchText"
+                   md-item-text="t.text">
+                    <span>{{ t.text }}</span>
+                    <md-not-found>
+                        No Such Task.
+                    </md-not-found>
+                </md-autocomplete>
             </div>
         </md-toolbar>
-        <div class= "top-menu">
+        <div class="top-menu">
             <md-input-container>
                 <label>Enter Task</label>
                 <input type="text" ng-model="todoText" />

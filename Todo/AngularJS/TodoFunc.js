@@ -10,10 +10,12 @@ var TodoApp = angular.module('todoApp', ['ngMaterial', 'ngMessages'])
             .warnPalette('amber').dark();
     });
 
+    
+
 TodoApp.controller('controller', function ($scope, $http,$mdDialog) {
     $scope.Todos = [];
     $scope.idCount = 0;
-
+ 
     $scope.getFromServer = function () {
         $http.get(apiUrl).then(
             function (response) {
@@ -24,6 +26,12 @@ TodoApp.controller('controller', function ($scope, $http,$mdDialog) {
         );
 
     }
+
+    $scope.querySearch = function(query) {
+        var results = query.toLowerCase() ? $scope.Todos.filter(query.toLowerCase()) : $scope.Todos
+          return results;
+      }
+
     $scope.addTodo = function () {
         let newTask = { text: $scope.todoText, isChecked: false, id: $scope.idCount };
         $scope.Todos.push(newTask);
