@@ -1,0 +1,64 @@
+.checked {
+    text-decoration: line-through;
+}
+
+md-button {
+    margin-top: 16px;
+    margin-bottom: 16px; 
+}
+
+md-content {
+    height: inherit;
+}
+
+.md-toolbar-tools {
+    justify-content: space-between;
+}
+
+.vertical-container {
+    max-height: 75vh;
+    min-height: 75vh;
+    width: 75%;
+    align-items: center;
+
+}
+
+.taskItem {
+    margin-top: 2.5vh;
+    display: inline-flex;
+    width: 100%;
+}
+
+.orderButtons {
+    display: grid;
+}
+
+.main-class{
+    height: inherit;
+}
+
+.task-card {
+    background-color: rgb(109, 109, 109) !important;
+    width: 100%;
+}
+
+.delete-button {
+    color : red;
+    justify-content: space-between
+}
+
+.top-menu {
+    margin-left: 3vh;
+}
+
+.main-card {
+    display: flex;
+    justify-content: center;
+}
+
+ /* .repeated-item {
+    border-bottom: 1px solid #ddd;
+    box-sizing: border-box;;
+    height: 5vh;
+    padding-top: 2vh; 
+}  */
