@@ -1,34 +1,29 @@
 
-class serverService{
-    constructor(config)
-    {
-        this.config = config;
+TodoApp.service('serverService',["UrlConfig","$http", function(UrlConfig,$http){
+    this.getFromServer = function() {
+        return ($http.get(UrlConfig.apiUrl));
     }
-    getFromServer($http) {
-        return ($http.get(this.config.apiUrl));
-    }
-
-    addToServer($http , newTask) {
-        $http.put(this.config.addTaskUrl, JSON.stringify(newTask), this.config.configHeader);
+    this.addToServer = function(newTask) {
+        $http.put(UrlConfig.addTaskUrl, JSON.stringify(newTask), UrlConfig.configHeader);
     }
 
-    deleteFromServer($http, id) {
-        $http.delete(this.config.deleteTaskUrl + id, this.config.configHeader);
+    deleteFromServer = function(id) {
+        $http.delete(UrlConfig.deleteTaskUrl + id, UrlConfig.configHeader);
     }
 
-    checkTaskToServer($http, id, isChecked) {
-        $http.put(this.config.checkTaskUrl + id + "?isChecked=" + !isChecked, this.config.configHeader);
+    checkTaskToServer = function(id, isChecked) {
+        $http.put(UrlConfig.checkTaskUrl + id + "?isChecked=" + !isChecked, UrlConfig.configHeader);
     }
 
-    editTextToServer($http, id, editResult) {
-        $http.put(this.config.EditUrl + id + "?newText=" + editResult, this.config.configHeader).catch(function onError(error) {
+    editTextToServer = function(id, editResult) {
+        $http.put(UrlConfig.EditUrl + id + "?newText=" + editResult, UrlConfig.configHeader).catch(function onError(error) {
             console.log(error);
         });
     }
 
-    updateListToServer($http, data) {
-        $http.put(this.config.deleteCheckedUrl, angular.toJson(data), this.config.configHeader).catch(function onError(error) {
+    updateListToServer = function(data) {
+        $http.put(UrlConfig.deleteCheckedUrl, angular.toJson(data), UrlConfig.configHeader).catch(function onError(error) {
             console.log(error);
         });
     }
-}
+}]);

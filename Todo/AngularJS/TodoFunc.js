@@ -1,6 +1,5 @@
 var TodoApp = angular.module('todoApp', ['ngMaterial', 'ngMessages'])
     .constant('UrlConfig', new config())
-    .factory('communicator', ["UrlConfig", function(UrlConfig) {return new serverService(UrlConfig)}])
     .config(function ($mdThemingProvider) {
         $mdThemingProvider.theme('IdoTheme')
             .primaryPalette('pink', {
@@ -13,11 +12,11 @@ var TodoApp = angular.module('todoApp', ['ngMaterial', 'ngMessages'])
     });
 
 
-TodoApp.controller('controller', function ($scope, $http, $mdDialog, communicator) {
+TodoApp.controller('controller', function ($scope, $http, $mdDialog, serverService) {
     $scope.Todos = [];
     $scope.idCount = 0;
     $scope.getFromServer = function () {
-        let response = communicator.getFromServer($http);
+        let response = serverService.getFromServer();
         response.then(
             function (response) {
                 $scope.Todos = angular.fromJson(response.data);
@@ -33,17 +32,17 @@ TodoApp.controller('controller', function ($scope, $http, $mdDialog, communicato
         console.log(JSON.stringify(newTask));
         $scope.Todos.push(newTask);
         $scope.idCount += 1;
-        communicator.addToServer($http, newTask);
+        serverService.addToServer(newTask);
     }
     $scope.delete = function (id) {
         $scope.Todos = $scope.Todos.filter(task => task.id != id);
-        communicator.deleteFromServer($http, id);
+        serverService.deleteFromServer(id);
 
     }
     $scope.checkTask = function (id) {
         let isChecked = $scope.Todos.find(task => task.id == id).isChecked;
         $scope.Todos.find(task => task.id == id).isChecked = !isChecked;
-        communicator.checkTaskToServer($http, id, isChecked);
+        serverService.checkTaskToServer(id, isChecked);
     }
 
     $scope.showPrompt = function (ev, id) {
@@ -61,12 +60,12 @@ TodoApp.controller('controller', function ($scope, $http, $mdDialog, communicato
 
     $scope.editTask = function (id, editResult) {
         $scope.Todos.find(task => task.id == id).text = editResult;
-        communicator.editTextToServer($http, id, editResult)
+        serverService.editTextToServer(id, editResult)
     }
 
     $scope.deleteAllChecked = function (id) {
         $scope.Todos = $scope.Todos.filter(task => task.isChecked != true);
-        communicator.updateListToServer($http,$scope.Todos);
+        serverService.updateListToServer($,$scope.Todos);
     }
 
     $scope.switch = function (id, direction) {
@@ -75,7 +74,7 @@ TodoApp.controller('controller', function ($scope, $http, $mdDialog, communicato
             let temp = $scope.Todos[index];
             $scope.Todos[index] = $scope.Todos[index + direction];
             $scope.Todos[index + direction] = temp;
-            communicator.updateListToServer($http,$scope.Todos);
+            serverService.updateListToServer($scope.Todos);
         }
     }
 
