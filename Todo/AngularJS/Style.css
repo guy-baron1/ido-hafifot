@@ -33,6 +33,10 @@ md-content {
     display: grid;
 }
 
+.main-class{
+    height: inherit;
+}
+
 .task-card {
     background-color: rgb(109, 109, 109);
     width: 100%;

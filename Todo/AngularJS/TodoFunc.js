@@ -1,4 +1,6 @@
 var TodoApp = angular.module('todoApp', ['ngMaterial', 'ngMessages'])
+    .constant('UrlConfig', new config())
+    .factory('communicator', ["UrlConfig", function(UrlConfig) {return new serverService(UrlConfig)}])
     .config(function ($mdThemingProvider) {
         $mdThemingProvider.theme('IdoTheme')
             .primaryPalette('pink', {
@@ -11,13 +13,12 @@ var TodoApp = angular.module('todoApp', ['ngMaterial', 'ngMessages'])
     });
 
 
-
-TodoApp.controller('controller', function ($scope, $http, $mdDialog) {
+TodoApp.controller('controller', function ($scope, $http, $mdDialog, communicator) {
     $scope.Todos = [];
     $scope.idCount = 0;
-
     $scope.getFromServer = function () {
-        $http.get(apiUrl).then(
+        let response = communicator.getFromServer($http);
+        response.then(
             function (response) {
                 $scope.Todos = angular.fromJson(response.data);
                 $scope.idCount = $scope.Todos.length;
@@ -27,19 +28,22 @@ TodoApp.controller('controller', function ($scope, $http, $mdDialog) {
     }
 
     $scope.addTodo = function () {
-        let newTask = { text: $scope.todoText, isChecked: false, id: $scope.idCount };
+        let newTask = new Task($scope.todoText, $scope.idCount, false)
+        console.log(newTask);
+        console.log(JSON.stringify(newTask));
         $scope.Todos.push(newTask);
         $scope.idCount += 1;
-        $http.put(addTaskUrl, JSON.stringify(newTask), configHeader);
+        communicator.addToServer($http, newTask);
     }
     $scope.delete = function (id) {
         $scope.Todos = $scope.Todos.filter(task => task.id != id);
-        $http.delete(deleteTaskUrl + id, configHeader);
+        communicator.deleteFromServer($http, id);
+
     }
     $scope.checkTask = function (id) {
         let isChecked = $scope.Todos.find(task => task.id == id).isChecked;
         $scope.Todos.find(task => task.id == id).isChecked = !isChecked;
-        $http.put(checkTaskUrl + id + "?isChecked=" + !isChecked, configHeader);
+        communicator.checkTaskToServer($http, id, isChecked);
     }
 
     $scope.showPrompt = function (ev, id) {
@@ -57,15 +61,12 @@ TodoApp.controller('controller', function ($scope, $http, $mdDialog) {
 
     $scope.editTask = function (id, editResult) {
         $scope.Todos.find(task => task.id == id).text = editResult;
-        $http.put(EditUrl + id + "?newText=" + editResult, configHeader).catch(function onError(error) {
-            console.log(error);
-        });
+        communicator.editTextToServer($http, id, editResult)
     }
 
     $scope.deleteAllChecked = function (id) {
         $scope.Todos = $scope.Todos.filter(task => task.isChecked != true);
-        let data = $scope.Todos;
-        $scope.updateTodosServer(data);
+        communicator.updateListToServer($http,$scope.Todos);
     }
 
     $scope.switch = function (id, direction) {
@@ -74,15 +75,8 @@ TodoApp.controller('controller', function ($scope, $http, $mdDialog) {
             let temp = $scope.Todos[index];
             $scope.Todos[index] = $scope.Todos[index + direction];
             $scope.Todos[index + direction] = temp;
-            let data = $scope.Todos;
-            $scope.updateTodosServer(data);
+            communicator.updateListToServer($http,$scope.Todos);
         }
-    }
-
-    $scope.updateTodosServer = function (data) {
-        $http.put(deleteCheckedUrl, angular.toJson(data), configHeader).catch(function onError(error) {
-            console.log(error);
-        });
     }
 
 });
