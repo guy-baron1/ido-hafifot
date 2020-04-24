@@ -1,0 +1,116 @@
+.main-class {
+  height: inherit;
+}
+
+.sidebar {
+  height: 90.5%;
+  max-width: 12%;
+  margin: 3ev;
+  position: fixed !important;
+}
+
+.sidebar-content {
+  max-width: 100%;
+  overflow-x: hidden;
+  justify-content: center;
+  display: flex;
+}
+
+.app-title {
+  font-size: 1.8em !important;
+  font-family: sans-serif;
+  font-style: italic;
+  font-weight: bold !important;
+  color: green;
+  padding: 0 3px !important;
+  margin: 0.7em;
+}
+
+.mainpage-top-card {
+  height: 7vh;
+  width: 88%;
+  margin: 0;
+}
+
+.mainpage-top-content {
+  height: inherit;
+  width: inherit;
+  padding: 0;
+  margin-left: 2em;
+}
+
+.mainpage-top-alignment {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.song-div {
+  /* margin-top: 2.5vh; */
+  display: inline-flex;
+  width: 85%;
+}
+
+.song-card {
+  /* background-color: rgb(109, 109, 109) !important; */
+  width: 100%;
+  /* height: inherit; */
+  justify-content: center;
+  margin: 0.2em;
+  height: fit-content;
+}
+
+.songs-alignment {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 2%;
+}
+
+.song-content {
+  padding: 8px;
+}
+
+.vertical-container {
+  max-height: 73vh;
+  min-height: 73vh;
+  width: 100%;
+  justify-content: center;
+  margin-top: 1em !important;
+}
+
+.left-sidenav-button {
+  margin-left: 0px !important;
+  padding-left: 0px !important;
+}
+
+.media-footer {
+  display: block;
+  align-self: center;
+  width: 70%;
+  align-content: center;
+}
+
+.media-toolbar {
+  display: flex;
+  justify-content: center;
+}
+
+.audio-control-panel {
+  display: flex;
+  justify-content: center;
+}
+
+main {
+  overflow-y: auto;
+}
+
+.audio-time-footer {
+  overflow: hidden;
+  display: flex;
+  justify-content: space-around;
+}
+
+.slider {
+  width: 80%;
+  justify-content: center;
+}

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+
+<html ng-app="musicApp" md-theme="IdoTheme">
+  <head>
+    <link href="Styles.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.12/angular-material.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <title>Id(audi)o Player</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-aria.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-messages.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.12/angular-material.min.js"></script>
+    <script src="app.js"></script>
+  </head>
+
+  <body>
+    <div class="main-class">
+      <md-content layout="column" layout-fill class="main-class">
+        <section layout="row" flex>
+          <md-sidenav
+            class="md-sidenav-left sidebar"
+            md-component-id="left"
+            md-is-locked-open="true"
+            md-whiteframe="4"
+          >
+            <md-toolbar class="md-primary">
+              <h1 class="md-toolbar-tools app-title sidebar-content">
+                Latiumtify
+              </h1>
+            </md-toolbar>
+            <md-content layout-padding class="sidebar-content">
+              <md-button class="left-sidenav-button">
+                <md-icon md-font-library="material-icons">music_note</md-icon>
+                Browse Songs
+              </md-button>
+            </md-content>
+          </md-sidenav>
+
+          <md-content flex>
+            <div ng-controller="MainPageCont">
+              <main flex>
+                <div layout="column" layout-align="top center">
+                  <div class="mainpage-top-alignment">
+                    <md-card class="mainpage-top-card">
+                      <md-card-content class="mainpage-top-content">
+                        <h1 class="app-title">Main Page</h1>
+                      </md-card-content>
+                    </md-card>
+                  </div>
+                  <md-virtual-repeat-container class="vertical-container">
+                    <div
+                      md-virtual-repeat="song in Songs"
+                      class="songs-alignment"
+                    >
+                      <div class="song-div">
+                        <md-card class="song-card">
+                          <md-card-content class="song-content">
+                            <md-button class="md-icon-button">
+                              <md-icon
+                                ><i class="material-icons"
+                                  >play_arrow</i
+                                ></md-icon
+                              >
+                            </md-button>
+                            <span>{{ song.Name }}</span>
+                          </md-card-content>
+                        </md-card>
+                      </div>
+                    </div>
+                  </md-virtual-repeat-container>
+                </div>
+              </main>
+            </div>
+          </md-content>
+        </section>
+
+        <footer>
+          <md-toolbar class="md-accent md-medium-tall media-toolbar">
+            <div class="media-footer">
+              <div class="audio-control-panel">
+                <md-button class="md-icon-button" ng-click="delete(t.id)">
+                  <md-icon
+                    ><i class="material-icons"> skip_previous </i></md-icon
+                  >
+                </md-button>
+                <md-button
+                  id="clicked"
+                  class="md-icon-button"
+                  ng-click="clicked = !clicked"
+                  ng-switch="clicked"
+                >
+                  <md-icon
+                    ng-switch-when="true"
+                    md-font-library="material-icons"
+                    >play_circle_outline</md-icon
+                  >
+                  <md-icon
+                    ng-switch-when="false"
+                    md-font-library="material-icons"
+                    >pause_circle_outline</md-icon
+                  >
+                </md-button>
+                <md-button class="md-icon-button" ng-click="delete(t.id)">
+                  <md-icon><i class="material-icons">skip_next</i></md-icon>
+                </md-button>
+              </div>
+              <div class="audio-time-footer">
+                0.0
+                <md-slider
+                  ng-model="color.blue"
+                  min="0.0"
+                  max="40"
+                  aria-label="blue"
+                  id="blue-slider"
+                  class="md-primary slider"
+                >
+                </md-slider>
+                40
+              </div>
+            </div>
+          </md-toolbar>
+        </footer>
+      </md-content>
+    </div>
+  </body>
+</html>
+
+<!-- <md-virtual-repeat-container class="vertical-container">
+                    <div md-virtual-repeat="song in Songs">
+                      <div class="taskItem">
+                        <md-card class="task-card">
+                          <md-card-content>
+                            <span>{{ song.Name }}</span>
+                            <md-button class="md-icon-button">
+                              <md-icon
+                                ><i class="material-icons"
+                                  >play_circle</i
+                                ></md-icon
+                              >
+                            </md-button>
+                          </md-card-content>
+                        </md-card>
+                      </div>
+                    </div>
+                  </md-virtual-repeat-container> -->
