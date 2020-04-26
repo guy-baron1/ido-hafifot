@@ -14,14 +14,13 @@ var MusicApp = angular
       .dark();
   });
 
-MusicApp.controller("MainPageCont", function ($scope, $http, serverService) {
-  $scope.Songs = [];
+MusicApp.controller("MainPageCont", function ($scope, serverService) {
+  $scope.Songs = [{}];
 
   $scope.getAllSongsInit = function () {
     let response = serverService.getAllSongs();
     response.then(function (response) {
       $scope.Songs = angular.fromJson(response.data);
-      console.log($scope.Songs);
     });
   };
   console.log("hello controller");

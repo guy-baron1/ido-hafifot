@@ -19,7 +19,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-messages.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.12/angular-material.min.js"></script>
     <script src="app.js"></script>
+    <script src="MusicContextService.js"></script>
     <script src="serverCommunicator.js"></script>
+    <script src="MusicPlayerController.js"></script>
   </head>
 
   <body>
@@ -38,7 +40,11 @@
               </h1>
             </md-toolbar>
             <md-content layout-padding class="sidebar-content">
-              <md-button class="left-sidenav-button">
+              <md-button
+                ng-controller="MainPageCont"
+                class="left-sidenav-button"
+                ng-click="getAllSongsInit()"
+              >
                 <md-icon md-font-library="material-icons">music_note</md-icon>
                 Browse Songs
               </md-button>
@@ -56,18 +62,21 @@
                       </md-card-content>
                     </md-card>
                   </div>
-                  <md-virtual-repeat-container
-                    class="vertical-container"
-                    ng-init="getAllSongsInit()"
-                  >
+                  <md-virtual-repeat-container class="vertical-container">
                     <div
                       md-virtual-repeat="song in Songs"
                       class="songs-alignment"
+                      ng-init="getAllSongsInit()"
                     >
                       <div class="song-div">
                         <md-card class="song-card">
                           <md-card-content class="song-content">
-                            <md-button class="md-icon-button">
+                            <md-button
+                              ng-controller="MusicPlayerCont"
+                              ng-model="playing"
+                              class="md-icon-button"
+                              ng-click="playSong(song.songName);"
+                            >
                               <md-icon
                                 ><i class="material-icons"
                                   >play_arrow</i
@@ -88,7 +97,7 @@
 
         <footer>
           <md-toolbar class="md-accent md-medium-tall media-toolbar">
-            <div class="media-footer">
+            <div class="media-footer" ng-controller="MusicPlayerCont">
               <div class="audio-control-panel">
                 <md-button class="md-icon-button" ng-click="delete(t.id)">
                   <md-icon
@@ -96,18 +105,18 @@
                   >
                 </md-button>
                 <md-button
-                  id="clicked"
+                  ng-model="getValue()"
                   class="md-icon-button"
-                  ng-click="clicked = !clicked"
-                  ng-switch="clicked"
+                  ng-click=" resumOrPauseSong();"
+                  ng-switch="getValue()"
                 >
                   <md-icon
-                    ng-switch-when="true"
+                    ng-switch-when="false"
                     md-font-library="material-icons"
                     >play_circle_outline</md-icon
                   >
                   <md-icon
-                    ng-switch-when="false"
+                    ng-switch-when="true"
                     md-font-library="material-icons"
                     >pause_circle_outline</md-icon
                   >
@@ -127,7 +136,9 @@
                   class="md-primary slider"
                 >
                 </md-slider>
-                40
+                <div>
+                  {{duration()}}
+                </div>
               </div>
             </div>
           </md-toolbar>
@@ -136,22 +147,3 @@
     </div>
   </body>
 </html>
-
-<!-- <md-virtual-repeat-container class="vertical-container">
-                    <div md-virtual-repeat="song in Songs">
-                      <div class="taskItem">
-                        <md-card class="task-card">
-                          <md-card-content>
-                            <span>{{ song.Name }}</span>
-                            <md-button class="md-icon-button">
-                              <md-icon
-                                ><i class="material-icons"
-                                  >play_circle</i
-                                ></md-icon
-                              >
-                            </md-button>
-                          </md-card-content>
-                        </md-card>
-                      </div>
-                    </div>
-                  </md-virtual-repeat-container> -->

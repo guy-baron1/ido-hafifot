@@ -40,13 +40,19 @@ namespace LatiumtifyServerSide
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseCors("MyPolicy");
             app.UseStaticFiles(new StaticFileOptions()
             {
+                OnPrepareResponse = context =>
+                {
+                    context.Context.Response.Headers["Access-Control-Allow-Origin"] = "*";
+                },
                 FileProvider = new PhysicalFileProvider(
                             Configuration["SongsLib"]),
                 RequestPath = new PathString("/song")
             });
+
+            app.UseCors("MyPolicy");
+
 
             if (env.IsDevelopment())
             {
