@@ -23,5 +23,4 @@ MusicApp.controller("MainPageCont", function ($scope, serverService) {
       $scope.Songs = angular.fromJson(response.data);
     });
   };
-  console.log("hello controller");
 });

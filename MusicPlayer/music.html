@@ -75,7 +75,7 @@
                               ng-controller="MusicPlayerCont"
                               ng-model="playing"
                               class="md-icon-button"
-                              ng-click="playSong(song.songName);"
+                              ng-click="playSong(song.songName,0);"
                             >
                               <md-icon
                                 ><i class="material-icons"
@@ -105,10 +105,10 @@
                   >
                 </md-button>
                 <md-button
-                  ng-model="getValue()"
+                  ng-model="isPlaying()"
                   class="md-icon-button"
                   ng-click=" resumOrPauseSong();"
-                  ng-switch="getValue()"
+                  ng-switch="isPlaying()"
                 >
                   <md-icon
                     ng-switch-when="false"
@@ -126,18 +126,19 @@
                 </md-button>
               </div>
               <div class="audio-time-footer">
-                0.0
+                {{timeToTimeString(ctime)}}
                 <md-slider
-                  ng-model="color.blue"
+                  ng-model="ctime"
                   min="0.0"
-                  max="40"
-                  aria-label="blue"
-                  id="blue-slider"
+                  max="{{ duration(false) }}"
+                  step="0.1"
+                  ng-mousedown="stopTime = true;"
+                  ng-mouseup="changeTime()"
                   class="md-primary slider"
                 >
                 </md-slider>
                 <div>
-                  {{duration()}}
+                  {{duration(true)}}
                 </div>
               </div>
             </div>

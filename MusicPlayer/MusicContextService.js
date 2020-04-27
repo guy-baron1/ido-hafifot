@@ -22,10 +22,7 @@ MusicApp.service("musicService", function () {
   };
 
   this.getDuration = function () {
-    duration = source.buffer.duration;
-    let minutes = Math.floor(duration / 60);
-    let seconds = duration - minutes * 60;
-    return minutes.toString() + ":" + (seconds * 10).toString().substring(0, 2);
+    return source.buffer.duration;
   };
 
   this.restartContext = function () {
