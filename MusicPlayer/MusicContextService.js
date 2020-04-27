@@ -37,6 +37,9 @@ MusicApp.service("musicService", function () {
   };
   this.setSource = function (newSource) {
     source = newSource;
+    source.onended = function (event) {
+      playing = false;
+    };
   };
   this.setPlaying = function (newPlaying) {
     playing = newPlaying;
