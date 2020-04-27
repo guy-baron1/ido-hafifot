@@ -14,13 +14,37 @@ var MusicApp = angular
       .dark();
   });
 
-MusicApp.controller("MainPageCont", function ($scope, serverService) {
+MusicApp.controller("MainPageCont", function (
+  $scope,
+  serverService,
+  songsService
+) {
   $scope.Songs = [{}];
+  $scope.Playlists = [{}];
 
   $scope.getAllSongsInit = function () {
     let response = serverService.getAllSongs();
     response.then(function (response) {
-      $scope.Songs = angular.fromJson(response.data);
+      songsService.setSongs(angular.fromJson(response.data));
     });
+  };
+
+  $scope.getAllPlaylists = function () {
+    let response = serverService.getPlaylists();
+    response.then(function (response) {
+      $scope.Playlists = angular.fromJson(response.data);
+      console.log($scope.Playlists);
+    });
+    console.log("Hello");
+  };
+
+  $scope.updateSongs = function (playlistSongs) {
+    console.log("Here");
+    songsService.setSongs(playlistSongs);
+    console.log($scope.Songs);
+  };
+
+  $scope.getSongs = function () {
+    return songsService.getSongs();
   };
 });
