@@ -114,7 +114,7 @@
           <md-toolbar class="md-accent md-medium-tall media-toolbar">
             <div class="media-footer" ng-controller="MusicPlayerCont">
               <div class="audio-control-panel">
-                <md-button class="md-icon-button" ng-click="delete(t.id)">
+                <md-button class="md-icon-button" ng-click="playNext(-1)">
                   <md-icon
                     ><i class="material-icons"> skip_previous </i></md-icon
                   >
@@ -136,7 +136,7 @@
                     >pause_circle_outline</md-icon
                   >
                 </md-button>
-                <md-button class="md-icon-button" ng-click="delete(t.id)">
+                <md-button class="md-icon-button" ng-click="playNext(1)">
                   <md-icon><i class="material-icons">skip_next</i></md-icon>
                 </md-button>
               </div>

@@ -1,5 +1,6 @@
 MusicApp.service("songsService", function () {
   let Songs = [{}];
+  let PlayingSongs = [{}];
 
   this.getSongs = function () {
     return Songs;
@@ -7,5 +8,13 @@ MusicApp.service("songsService", function () {
 
   this.setSongs = function (songList) {
     Songs = songList;
+  };
+
+  this.getPlayingSongs = function () {
+    return PlayingSongs;
+  };
+
+  this.setSongsAsPlaying = function () {
+    PlayingSongs = Songs;
   };
 });
