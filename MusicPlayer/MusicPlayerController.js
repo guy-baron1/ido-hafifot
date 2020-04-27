@@ -24,6 +24,10 @@ MusicApp.controller("MusicPlayerCont", function (
             musicService.setSource(
               musicService.getContext().createBufferSource()
             );
+            musicService.getSource().onended = function (event) {
+              musicService.setPlaying(false);
+              $scope.playNext(1);
+            };
             currBuffer = buffer;
             musicService.getSource().buffer = buffer;
             musicService
