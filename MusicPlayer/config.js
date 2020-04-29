@@ -6,7 +6,7 @@ class config {
     this.getAllSongs =
       "https://localhost:44336/api/Latiumtify/playlists/" + this.mainPlaylistId;
 
-    this.addPlaylist = "http://localhost:44336/api/Latiumtify/add";
+    this.addPlaylist = "https://localhost:44336/api/Latiumtify/add";
     this.configHeader = {
       headers: {
         Accept: "application/json",

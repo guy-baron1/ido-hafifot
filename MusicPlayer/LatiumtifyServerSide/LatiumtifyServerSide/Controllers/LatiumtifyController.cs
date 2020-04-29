@@ -36,16 +36,17 @@ namespace LatiumtifyServerSide.Controllers
         [HttpPut("add")]
         public ActionResult AddPlaylist(string name)
         {
+            Playlist retPlaylist;
             try
             {
-                _currentDB.AddPlaylist(name);
+                retPlaylist = _currentDB.AddPlaylist(name);
             }
             catch(Exception e)
             {
                 return BadRequest("Failed To Add Playlist - " + e);
             }
 
-            return Ok("Added Playlist");
+            return Ok(retPlaylist);
         }
 
         [HttpPut("Playlists/{id}/add/{name}")]

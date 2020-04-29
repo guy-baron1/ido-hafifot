@@ -14,6 +14,14 @@ MusicApp.service("serverService", [
       return $http.get(UrlConfig.playSong + songName, UrlConfig.songHeader);
     };
 
+    this.addPlaylist = function (playlistName) {
+      console.log(UrlConfig.addPlaylist + "?name=" + playlistName);
+      return $http.put(
+        UrlConfig.addPlaylist + "?name=" + playlistName,
+        UrlConfig.songHeader
+      );
+    };
+
     this.addSongToPlaylist = function (playlistId, songName) {
       return $http.put(
         UrlConfig.getPlaylists + "/" + playlistId + "/add/" + songName,

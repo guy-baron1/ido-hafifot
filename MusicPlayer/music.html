@@ -31,7 +31,7 @@
         <section layout="row" flex>
           <div ng-controller="MainPageCont">
             <md-sidenav
-              class="md-sidenav-left sidebar"
+              class="md-sidenav-left sidebar override-shadow"
               md-component-id="left"
               md-is-locked-open="true"
               md-whiteframe="4"
@@ -50,8 +50,8 @@
                   Browse Songs
                 </md-button>
 
-                <md-list ng-init="getAllPlaylists()" flex>
-                  <md-subheader class="md-no-sticky">Playlists</md-subheader>
+                <md-subheader class="md-no-sticky">Playlists</md-subheader>
+                <md-list ng-init="getAllPlaylists()" flex class="playlist-list">
                   <md-list-item
                     class="md-3-line"
                     ng-repeat="playlist in getPlaylists()"
@@ -64,6 +64,8 @@
                     <md-divider></md-divider>
                   </md-list-item>
                 </md-list>
+                <md-button class="md-fab md-primary md-hue-2 add-playlist-button" aria-label="Profile" ng-click="showNewPlaylistNameMenu($event)">
+                  <md-icon md-font-library="material-icons">add</md-icon>
               </md-content>
             </md-sidenav>
           </div>
@@ -73,7 +75,7 @@
               <main flex>
                 <div layout="column" layout-align="top center">
                   <div class="mainpage-top-alignment">
-                    <md-card class="mainpage-top-card">
+                    <md-card class="mainpage-top-card override-shadow">
                       <md-card-content class="mainpage-top-content">
                         <h1 class="app-title">Main Page</h1>
                       </md-card-content>

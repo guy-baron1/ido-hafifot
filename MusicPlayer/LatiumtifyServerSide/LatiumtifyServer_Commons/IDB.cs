@@ -8,7 +8,7 @@ namespace LatiumtifyServer_Commons
     {
         IEnumerable<Playlist> GetPlaylists();
         IEnumerable<Song> GetPlaylistSongs(Guid id);
-        void AddPlaylist(string name);
+        Playlist AddPlaylist(string name);
         void AddSongToPlaylist(Guid id, string name);
         void RemoveSongFromPlaylist(Guid id, string name);
     }

@@ -4,11 +4,11 @@ var MusicApp = angular
   .config(function ($mdThemingProvider) {
     $mdThemingProvider
       .theme("IdoTheme")
-      .primaryPalette("pink", {
-        default: "900",
+      .primaryPalette("purple", {
+        default: "800",
       })
-      .accentPalette("light-blue", {
-        default: "A700",
+      .accentPalette("purple", {
+        default: "600",
       })
       .warnPalette("amber")
       .dark();
@@ -18,7 +18,8 @@ MusicApp.controller("MainPageCont", function (
   UrlConfig,
   $scope,
   serverService,
-  songsService
+  songsService,
+  $mdDialog
 ) {
   $scope.Playlists = [{}];
   $scope.mainPlaylistId = UrlConfig.mainPlaylistId;
@@ -81,5 +82,30 @@ MusicApp.controller("MainPageCont", function (
       ).songs = newSongList;
     songsService.setSongs(newSongList);
     serverService.removeSongFromPlaylist($scope.getCurrentPlaylist(), songName);
+  };
+
+  $scope.addNewPlaylist = function (playlistName) {
+    console.log("Hello");
+    let response = serverService.addPlaylist(playlistName);
+    response.then(function (response) {
+      $scope.getPlaylists().push(angular.fromJson(response.data));
+    });
+  };
+
+  $scope.showNewPlaylistNameMenu = function (ev) {
+    // Appending dialog to document.body to cover sidenav in docs app
+    var confirm = $mdDialog
+      .prompt()
+      .title("Create A New Playlist")
+      .textContent("Enter A Name For The Playlist")
+      .initialValue("")
+      .targetEvent(ev)
+      .required(true)
+      .ok("Create")
+      .cancel("Cancel");
+
+    $mdDialog.show(confirm).then(function (result) {
+      $scope.addNewPlaylist(result);
+    });
   };
 });

@@ -27,11 +27,12 @@ namespace LatiumtifyServer_DL
             _playlists.Add(mainPlaylist);
         }
 
-        public void AddPlaylist(string name)
+        public Playlist AddPlaylist(string name)
         {
             List<Song> songs = new List<Song>();
             Playlist newPlaylist = new Playlist(name, songs);
             _playlists.Add(newPlaylist);
+            return newPlaylist;
         }
 
         public IEnumerable<Playlist> GetPlaylists()
