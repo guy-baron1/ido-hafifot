@@ -13,5 +13,19 @@ MusicApp.service("serverService", [
     this.getSong = function (songName) {
       return $http.get(UrlConfig.playSong + songName, UrlConfig.songHeader);
     };
+
+    this.addSongToPlaylist = function (playlistId, songName) {
+      return $http.put(
+        UrlConfig.getPlaylists + "/" + playlistId + "/add/" + songName,
+        UrlConfig.configHeader
+      );
+    };
+
+    this.removeSongFromPlaylist = function (playlistId, songName) {
+      return $http.delete(
+        UrlConfig.getPlaylists + "/" + playlistId + "/add/" + songName,
+        UrlConfig.configHeader
+      );
+    };
   },
 ]);

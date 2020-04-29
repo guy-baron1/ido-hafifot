@@ -54,8 +54,9 @@
                   <md-subheader class="md-no-sticky">Playlists</md-subheader>
                   <md-list-item
                     class="md-3-line"
-                    ng-repeat="playlist in Playlists"
-                    ng-click="updateSongs(playlist.songs)"
+                    ng-repeat="playlist in getPlaylists()"
+                    ng-if="playlist.id != mainPlaylistId"
+                    ng-click="updateSongs(playlist.songs,playlist.id)"
                   >
                     <div class="md-list-item-text" layout="column">
                       <h3>{{playlist.playlistName}}</h3>
@@ -87,18 +88,79 @@
                       <div class="song-div">
                         <md-card class="song-card">
                           <md-card-content class="song-content">
-                            <md-button
-                              ng-controller="MusicPlayerCont"
-                              class="md-icon-button"
-                              ng-click="playSong(song.songName,0);"
-                            >
-                              <md-icon
-                                ><i class="material-icons"
-                                  >play_arrow</i
-                                ></md-icon
+                            <div>
+                              <md-button
+                                ng-controller="MusicPlayerCont"
+                                class="md-icon-button"
+                                ng-click="playSong(song.songName,0);"
                               >
-                            </md-button>
-                            <span>{{ song.songName }}</span>
+                                <md-icon
+                                  ><i class="material-icons"
+                                    >play_arrow</i
+                                  ></md-icon
+                                >
+                              </md-button>
+                              <span>{{ song.songName }}</span>
+                            </div>
+                            <div>
+                              <md-menu-bar>
+                                <md-menu>
+                                  <md-button
+                                    ng-controller="MusicPlayerCont"
+                                    class="md-icon-button"
+                                    ng-click="openMenu($mdMenu, $event)"
+                                  >
+                                    <md-icon
+                                      ><i class="material-icons"
+                                        >more_horiz</i
+                                      ></md-icon
+                                    >
+                                  </md-button>
+                                  <md-menu-content width="4">
+                                    <md-menu-item>
+                                      <md-menu>
+                                        <md-button
+                                          ng-click="openMenu($mdMenu, $event)"
+                                        >
+                                          <md-icon
+                                            ><i class="material-icons"
+                                              >playlist_add</i
+                                            ></md-icon
+                                          >
+                                          Add To Playlist
+                                        </md-button>
+                                        <md-menu-content width="4">
+                                          <md-menu-item
+                                            ng-repeat="playlist in getPlaylists()"
+                                            ng-if="playlist.id != mainPlaylistId"
+                                          >
+                                            <md-button
+                                              ng-click="addSongToPlaylist(playlist.id,song.songName);"
+                                            >
+                                              {{playlist.playlistName}}
+                                            </md-button>
+                                          </md-menu-item>
+                                        </md-menu-content>
+                                      </md-menu>
+                                    </md-menu-item>
+                                    <md-menu-item
+                                      ng-if="getCurrentPlaylist() != mainPlaylistId"
+                                    >
+                                      <md-button
+                                        ng-click="removeFromPlaylist(song.songName)"
+                                      >
+                                        <md-icon
+                                          ><i class="material-icons"
+                                            >remove_circle_outline</i
+                                          ></md-icon
+                                        >
+                                        Remove From Playlist
+                                      </md-button>
+                                    </md-menu-item>
+                                  </md-menu-content>
+                                </md-menu>
+                              </md-menu-bar>
+                            </div>
                           </md-card-content>
                         </md-card>
                       </div>
