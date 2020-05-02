@@ -54,8 +54,7 @@
                 <md-list ng-init="getAllPlaylists()" flex class="playlist-list">
                   <md-list-item
                     class="md-3-line"
-                    ng-repeat="playlist in getPlaylists()"
-                    ng-if="playlist.id != mainPlaylistId"
+                    ng-repeat="playlist in Playlists"
                     ng-click="updateSongs(playlist.songs,playlist.id)"
                   >
                     <div class="md-list-item-text" layout="column">
@@ -83,9 +82,10 @@
                   </div>
                   <md-virtual-repeat-container class="vertical-container">
                     <div
-                      md-virtual-repeat="song in getSongs()"
+                     ng-model = "Songs"
+                      md-virtual-repeat="song in Songs"
                       class="songs-alignment"
-                      ng-init="getAllSongsInit()"
+                      ng-init="getAllSongsInit(); getAllPlaylists();"
                     >
                       <div class="song-div">
                         <md-card class="song-card">
@@ -133,8 +133,7 @@
                                         </md-button>
                                         <md-menu-content width="4">
                                           <md-menu-item
-                                            ng-repeat="playlist in getPlaylists()"
-                                            ng-if="playlist.id != mainPlaylistId"
+                                            ng-repeat="playlist in Playlists"
                                           >
                                             <md-button
                                               ng-click="addSongToPlaylist(playlist.id,song.songName);"
@@ -146,7 +145,7 @@
                                       </md-menu>
                                     </md-menu-item>
                                     <md-menu-item
-                                      ng-if="getCurrentPlaylist() != mainPlaylistId"
+                                      ng-if="CurrentPlaylist"
                                     >
                                       <md-button
                                         ng-click="removeFromPlaylist(song.songName)"
@@ -209,7 +208,7 @@
                 <md-slider
                   ng-model="ctime"
                   min="0.0"
-                  max="{{ duration(false) }}"
+                  max="{{ songDuration(false) }}"
                   step="0.1"
                   ng-mousedown="stopTime = true;"
                   ng-mouseup="changeTime()"
@@ -217,7 +216,7 @@
                 >
                 </md-slider>
                 <div>
-                  {{duration(true)}}
+                  {{songDuration(true)}}
                 </div>
               </div>
             </div>

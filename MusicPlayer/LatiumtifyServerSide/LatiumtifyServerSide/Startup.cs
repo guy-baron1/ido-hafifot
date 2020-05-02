@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using LatiumtifyServer_DL;
+using LatiumtifyServerSide.Controllers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -35,6 +37,7 @@ namespace LatiumtifyServerSide
                        .AllowAnyHeader();
             }));
             services.AddControllers();
+            services.AddSingleton<LatiumtifyServer_Commons.IDB>(x=> new RamDB(Configuration["SongsLib"]));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

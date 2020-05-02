@@ -10,27 +10,26 @@ using Microsoft.Extensions.Configuration;
 namespace LatiumtifyServerSide.Controllers
 {
     [ApiController]
-    [Route("api/Latiumtify")]
+    [Route("api/Playlists")]
     public class LatiumtifyController : ControllerBase
     {
-        IConfiguration Configuration;
-        private static IDB _currentDB = new RamDB("C:\\secretFolder");
+        IConfiguration Configuration { get;set;}
+        private readonly IDB _currentDB;
 
-        public LatiumtifyController(IConfiguration configuration)
+        public LatiumtifyController(IDB db)
         {
-            Configuration = configuration;
+            _currentDB = db;
         }
 
-        [HttpGet("Playlists")]
         public IEnumerable<Playlist> GetAllPlaylists()
         {
             return _currentDB.GetPlaylists();
         }
 
-        [HttpGet("Playlists/{id}")]
-        public IEnumerable<Song> GetAllPlaylists(Guid id)
+        [HttpGet("allSongs")]
+        public IEnumerable<Song> GetAllSongs()
         {
-            return _currentDB.GetPlaylistSongs(id);
+            return _currentDB.GetAllSongs();
         }
 
         [HttpPut("add")]
@@ -49,12 +48,12 @@ namespace LatiumtifyServerSide.Controllers
             return Ok(retPlaylist);
         }
 
-        [HttpPut("Playlists/{id}/add/{name}")]
-        public ActionResult AddSongToPlaylist(Guid id,string name)
+        [HttpPost("addSong")]
+        public ActionResult AddSongToPlaylist(PlaylistEditModel model)
         {
             try
             {
-                _currentDB.AddSongToPlaylist(id,name);
+                _currentDB.AddSongToPlaylist(model.id,model.songName);
             }
             catch (ArgumentNullException e)
             {
@@ -64,12 +63,12 @@ namespace LatiumtifyServerSide.Controllers
             return Ok("Added song Playlist");
         }
 
-        [HttpDelete("Playlists/{id}/add/{name}")]
-        public ActionResult RemoveSongToPlaylist(Guid id, string name)
+        [HttpDelete("removeSong")]
+        public ActionResult RemoveSongToPlaylist(PlaylistEditModel model)
         {
             try
             {
-                _currentDB.RemoveSongFromPlaylist(id, name);
+                _currentDB.RemoveSongFromPlaylist(model.id, model.songName);
             }
             catch (ArgumentNullException e)
             {

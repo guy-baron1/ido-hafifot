@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using LatiumtifyServer_Commons;
 
@@ -9,28 +10,28 @@ namespace LatiumtifyServer_DL
     public class RamDB : IDB
     {
         private List<Playlist> _playlists;
+        private List<Song> _songs;
         private string _sourceUrl;
-        private static Guid _mainPlaylistId = new Guid();
-
+        private List<string> _files;
         public RamDB(string sourceUrl)
         {
+            Console.WriteLine("hello " + sourceUrl);
             _sourceUrl = sourceUrl;
             _playlists = new List<Playlist>();
-            string[] files = Directory.GetFiles(_sourceUrl);
+            _files = Directory.GetFiles(_sourceUrl).ToList();
             List<Song> allSongs = new List<Song>();
-            foreach (string file in files)
+            _files.ForEach(file =>
             {
                 Song song = new Song(Path.GetFileName(file).ToLower());
                 allSongs.Add(song);
-            }
-            Playlist mainPlaylist = new Playlist("All Songs", allSongs, _mainPlaylistId);
-            _playlists.Add(mainPlaylist);
+            });
+            _songs = allSongs;
         }
 
         public Playlist AddPlaylist(string name)
         {
-            List<Song> songs = new List<Song>();
-            Playlist newPlaylist = new Playlist(name, songs);
+            Console.WriteLine("hello " + _sourceUrl);
+            Playlist newPlaylist = new Playlist(name);
             _playlists.Add(newPlaylist);
             return newPlaylist;
         }
@@ -40,9 +41,9 @@ namespace LatiumtifyServer_DL
             return _playlists;
         }
 
-        public IEnumerable<Song> GetPlaylistSongs(Guid id)
+        public IEnumerable<Song> GetAllSongs()
         {
-            return _playlists.Find(playlist => playlist.id == id).songs;
+            return _songs;
         }
 
         public void AddSongToPlaylist(Guid id, string name)
@@ -56,24 +57,20 @@ namespace LatiumtifyServer_DL
                 }
                 catch (ArgumentNullException e)
                 {
-                    throw new ArgumentNullException("No Playlist With This Id Exists");
+                    throw new ArgumentNullException("No Playlist With This Id Exists " + e);
                 }
             }
             else
             {
-                throw new ArgumentNullException("No Song With This Name In Folder");
+                throw new ArgumentException("No Song With This Name In Folder");
             }
         }
 
         private bool songExistsInFolder(string name)
         {
-            string[] files = Directory.GetFiles(_sourceUrl);
-            foreach (string file in files)
+            if(_files.Any(file => Path.GetFileName(file).ToLower() == name.ToLower()))
             {
-                if (Path.GetFileName(file).ToLower() == name.ToLower())
-                {
-                    return true;
-                }
+                return true;
             }
             return false;
         }
@@ -88,12 +85,12 @@ namespace LatiumtifyServer_DL
                 }
                 catch (ArgumentNullException e)
                 {
-                    throw new ArgumentNullException("The Arguments You Entered Where Invalid");
+                    throw new ArgumentNullException("The Arguments You Entered Where Invalid " + e);
                 }
             }
             else
             {
-                throw new ArgumentNullException("No Song With This Name In The Folder");
+                throw new ArgumentException("No Song With This Name In The Folder");
             }
         }
     }

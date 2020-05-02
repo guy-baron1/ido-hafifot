@@ -23,5 +23,12 @@ namespace LatiumtifyServer_Commons
             this.playlistName = playlistName;
             this.songs = songs;
         }
+
+        public Playlist(string playlistName)
+        {
+            this.id = Guid.NewGuid();
+            this.playlistName = playlistName;
+            this.songs = new List<Song>();
+        }
     }
 }

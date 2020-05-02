@@ -8,24 +8,36 @@ MusicApp.service("musicService", function () {
   } catch (error) {
     window.alert("Sorry, but your browser doesn't support the Web Audio API!");
   }
-  this.getSource = function () {
+
+  this.getSource = getSource;
+  this.getPlaying = getPlaying;
+  this.getContext = getContext;
+  this.getCurrentSong = getCurrentSong;
+  this.getDuration = getDuration;
+  this.restartContext = restartContext;
+  this.setSource = setSource;
+  this.setPlaying = setPlaying;
+  this.setCurrentSong = setCurrentSong;
+  this.updatePlaying = updatePlaying;
+
+  function getSource() {
     return source;
-  };
-  this.getPlaying = function () {
+  }
+  function getPlaying() {
     return playing;
-  };
-  this.getContext = function () {
+  }
+  function getContext() {
     return context;
-  };
-  this.getCurrentSong = function () {
+  }
+  function getCurrentSong() {
     return currentSong;
-  };
+  }
 
-  this.getDuration = function () {
+  function getDuration() {
     return source.buffer.duration;
-  };
+  }
 
-  this.restartContext = function () {
+  function restartContext() {
     context.close();
     try {
       context = new (window.AudioContext || window.webkitAudioContext)();
@@ -34,19 +46,19 @@ MusicApp.service("musicService", function () {
         "Sorry, but your browser doesn't support the Web Audio API!"
       );
     }
-  };
-  this.setSource = function (newSource) {
+  }
+  function setSource(newSource) {
     source = newSource;
-  };
-  this.setPlaying = function (newPlaying) {
+  }
+  function setPlaying(newPlaying) {
     playing = newPlaying;
-  };
-  this.setCurrentSong = function (newSong) {
+  }
+  function setCurrentSong(newSong) {
     currentSong = newSong;
-  };
+  }
 
-  this.updatePlaying = function () {
+  function updatePlaying() {
     playing = !playing;
     return playing;
-  };
+  }
 });

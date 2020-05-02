@@ -1,38 +1,47 @@
-MusicApp.service("songsService", function () {
-  let Songs = [{}];
+MusicApp.service("playlistService", function () {
+  this.Songs = [{}];
   let Playlists = [{}];
   let PlayingSongs = [{}];
   let currentPlaylist = "";
 
-  this.getCurrentPlaylist = function () {
+  this.getCurrentPlaylist = getCurrentPlaylist;
+  this.setCurrentPlaylist = setCurrentPlaylist;
+  this.getSongs = getSongs;
+  this.setSongs = setSongs;
+  this.getPlayingSongs = getPlayingSongs;
+  this.setSongsAsPlaying = setSongsAsPlaying;
+  this.getPlaylists = getPlaylists;
+  this.setPlaylists = setPlaylists;
+
+  function getCurrentPlaylist() {
     return currentPlaylist;
-  };
+  }
 
-  this.setCurrentPlaylist = function (playlistId) {
+  function setCurrentPlaylist(playlistId) {
     currentPlaylist = playlistId;
-  };
+  }
 
-  this.getSongs = function () {
-    return Songs;
-  };
+  function getSongs() {
+    return this.Songs;
+  }
 
-  this.setSongs = function (songList) {
+  function setSongs(songList) {
     Songs = songList;
-  };
+  }
 
-  this.getPlayingSongs = function () {
+  function getPlayingSongs() {
     return PlayingSongs;
-  };
+  }
 
-  this.setSongsAsPlaying = function () {
+  function setSongsAsPlaying() {
     PlayingSongs = Songs;
-  };
+  }
 
-  this.getPlaylists = function () {
+  function getPlaylists() {
     return Playlists;
-  };
+  }
 
-  this.setPlaylists = function (newPlaylists) {
+  function setPlaylists(newPlaylists) {
     Playlists = newPlaylists;
-  };
+  }
 });

@@ -15,45 +15,38 @@ var MusicApp = angular
   });
 
 MusicApp.controller("MainPageCont", function (
+  $rootScope,
   UrlConfig,
   $scope,
-  serverService,
-  songsService,
+  apiService,
+  playlistService,
   $mdDialog
 ) {
   $scope.Playlists = [{}];
-  $scope.mainPlaylistId = UrlConfig.mainPlaylistId;
-  console.log($scope.mainPlaylistId);
+  $scope.Songs = [{}];
+  $scope.CurrentPlaylist = "";
+
   $scope.getAllSongsInit = function () {
-    let response = serverService.getAllSongs();
+    const response = apiService.getAllSongs();
     response.then(function (response) {
-      songsService.setSongs(angular.fromJson(response.data));
+      $scope.updateSongs(angular.fromJson(response.data, undefined));
     });
-    songsService.setCurrentPlaylist($scope.mainPlaylistId);
   };
 
   $scope.getAllPlaylists = function () {
-    let response = serverService.getPlaylists();
+    const response = apiService.getPlaylists();
     response.then(function (response) {
-      songsService.setPlaylists(angular.fromJson(response.data));
+      $scope.Playlists = angular.fromJson(response.data);
     });
   };
 
   $scope.updateSongs = function (playlistSongs, playlistId) {
-    songsService.setSongs(playlistSongs);
-    songsService.setCurrentPlaylist(playlistId);
-  };
-
-  $scope.getSongs = function () {
-    return songsService.getSongs();
-  };
-
-  $scope.getPlaylists = function () {
-    return songsService.getPlaylists();
-  };
-
-  $scope.getCurrentPlaylist = function () {
-    return songsService.getCurrentPlaylist();
+    $scope.Songs = playlistSongs;
+    $scope.CurrentPlaylist = playlistId;
+    $rootScope.$broadcast("SwitchedPlaylist", {
+      Songs: $scope.Songs,
+      CurrentPlaylist: $scope.CurrentPlaylist,
+    });
   };
 
   $scope.openMenu = function ($mdMenu, ev) {
@@ -62,33 +55,39 @@ MusicApp.controller("MainPageCont", function (
   };
 
   $scope.addSongToPlaylist = function (playlistId, songName) {
-    console.log({ songName: songName });
-    $scope
-      .getPlaylists()
-      .find((playlist) => playlist.id === playlistId)
-      .songs.push({ songName: songName });
-    serverService.addSongToPlaylist(playlistId, songName);
+    $scope.Playlists.find((playlist) => playlist.id === playlistId).songs.push({
+      songName,
+    });
+    $rootScope.$broadcast("PlaylistsChanged", {
+      Playlists: $scope.Playlists,
+    });
+    apiService.addSongToPlaylist(playlistId, songName);
   };
 
   $scope.removeFromPlaylist = function (songName) {
-    let newSongList = $scope
-      .getPlaylists()
-      .find((playlist) => playlist.id === $scope.getCurrentPlaylist())
-      .songs.filter((song) => song.songName != songName);
-    $scope
-      .getPlaylists()
-      .find(
-        (playlist) => playlist.id === $scope.getCurrentPlaylist()
+    if ($scope.CurrentPlaylist) {
+      let newSongList = $scope.Playlists.find(
+        (playlist) => playlist.id === $scope.CurrentPlaylist
+      ).songs.filter((song) => song.songName != songName);
+      $scope.Playlists.find(
+        (playlist) => playlist.id === $scope.CurrentPlaylist
       ).songs = newSongList;
-    songsService.setSongs(newSongList);
-    serverService.removeSongFromPlaylist($scope.getCurrentPlaylist(), songName);
+      $scope.Songs = newSongList;
+      $rootScope.$broadcast("CurrentPlaylistChanged", {
+        Playlists: $scope.Playlists,
+        Songs: $scope.Songs,
+      });
+      apiService.removeSongFromPlaylist($scope.CurrentPlaylist, songName);
+    }
   };
 
   $scope.addNewPlaylist = function (playlistName) {
-    console.log("Hello");
-    let response = serverService.addPlaylist(playlistName);
+    const response = apiService.addPlaylist(playlistName);
     response.then(function (response) {
-      $scope.getPlaylists().push(angular.fromJson(response.data));
+      $scope.Playlists.push(angular.fromJson(response.data));
+      $rootScope.$broadcast("PlaylistsChanged", {
+        Playlists: $scope.Playlists,
+      });
     });
   };
 
@@ -108,4 +107,18 @@ MusicApp.controller("MainPageCont", function (
       $scope.addNewPlaylist(result);
     });
   };
+
+  $scope.$on("SwitchedPlaylist", function (events, args) {
+    $scope.Songs = args.Songs;
+    $scope.CurrentPlaylist = args.CurrentPlaylist;
+  });
+
+  $scope.$on("CurrentPlaylistChanged", function (events, args) {
+    $scope.Songs = args.Songs;
+    $scope.Playlists = args.Playlists;
+  });
+
+  $scope.$on("PlaylistsChanged", function (events, args) {
+    $scope.Playlists = args.Playlists;
+  });
 });

@@ -1,13 +1,16 @@
 MusicApp.controller("MusicPlayerCont", function (
+  $rootScope,
   $scope,
   $interval,
-  serverService,
+  apiService,
   musicService,
-  songsService
+  playlistService
 ) {
+  $scope.Songs;
   $scope.service = musicService;
   $scope.ctime = 0;
   $scope.stopTime = false;
+  $scope.duration = undefined;
   let currBuffer;
   $scope.playing = musicService.getPlaying();
   $scope.playSong = function (songName, time) {
@@ -16,7 +19,7 @@ MusicApp.controller("MusicPlayerCont", function (
       if (musicService.getSource()) {
         musicService.getSource().stop();
       }
-      let response = serverService.getSong(songName);
+      const response = apiService.getSong(songName);
       response.then(function (response) {
         musicService
           .getContext()
@@ -24,24 +27,30 @@ MusicApp.controller("MusicPlayerCont", function (
             musicService.setSource(
               musicService.getContext().createBufferSource()
             );
-            musicService.getSource().onended = function (event) {
-              musicService.setPlaying(false);
-              $scope.playNext(1);
-            };
+            musicService.getSource().onended = onSongEnded;
             currBuffer = buffer;
             musicService.getSource().buffer = buffer;
             musicService
               .getSource()
               .connect(musicService.getContext().destination);
+            $scope.duration = musicService.getDuration();
+            $rootScope.$broadcast("NewSongPlaying", {
+              duration: $scope.duration,
+            });
             musicService.setCurrentSong(songName);
             musicService.getSource().start(0, time);
             $scope.ctime = time;
-            songsService.setSongsAsPlaying();
+            // playlistService.setSongsAsPlaying();
             musicService.setPlaying(true);
           });
       });
     }
   };
+
+  function onSongEnded(event) {
+    musicService.setPlaying(false);
+    $scope.playNext(1);
+  }
 
   $interval(function () {
     if ($scope.isPlaying() && !$scope.stopTime) {
@@ -64,9 +73,9 @@ MusicApp.controller("MusicPlayerCont", function (
     return musicService.getPlaying();
   };
 
-  $scope.duration = function (stringNeeded) {
+  $scope.songDuration = function (stringNeeded) {
     if (musicService.getSource()) {
-      let duration = musicService.getDuration();
+      let duration = $scope.duration;
       if (stringNeeded) {
         return $scope.timeToTimeString(duration);
       } else {
@@ -97,19 +106,22 @@ MusicApp.controller("MusicPlayerCont", function (
   $scope.playNext = function (movment) {
     if (musicService.getCurrentSong() != "") {
       let nextSongIndex =
-        songsService
-          .getPlayingSongs()
-          .findIndex((song) => song.songName == musicService.getCurrentSong()) +
-        movment;
-      if (nextSongIndex >= songsService.getPlayingSongs().length) {
+        $scope.Songs.findIndex(
+          (song) => song.songName == musicService.getCurrentSong()
+        ) + movment;
+      if (nextSongIndex >= $scope.Songs.length) {
         nextSongIndex = 0;
       } else if (nextSongIndex < 0) {
-        nextSongIndex = songsService.getPlayingSongs().length;
+        nextSongIndex = $scope.Songs.length - 1;
       }
-      $scope.playSong(
-        songsService.getPlayingSongs()[nextSongIndex].songName,
-        0
-      );
+      $scope.playSong($scope.Songs[nextSongIndex].songName, 0);
     }
   };
+
+  $scope.$on("SwitchedPlaylist", function (events, args) {
+    $scope.Songs = args.Songs;
+  });
+  $scope.$on("NewSongPlaying", function (events, args) {
+    $scope.duration = args.duration;
+  });
 });
