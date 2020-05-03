@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+
+<html ng-app="musicApp" md-theme="IdoTheme">
+  <head>
+    <link href="Styles.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.12/angular-material.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <title>Id(audi)o Player</title>
+    <script src="config.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-aria.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-messages.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.12/angular-material.min.js"></script>
+    <script src="app.js"></script>
+    <script src="MainPageDataService.js"></script>
+    <script src="MusicContextService.js"></script>
+    <script src="serverCommunicator.js"></script>
+    <script src="MusicPlayerController.js"></script>
+  </head>
+
+  <body>
+    <div class="main-class">
+      <md-content layout="column" layout-fill class="main-class">
+        <section layout="row" flex>
+          <div ng-controller="MainPageCont">
+            <md-sidenav
+              class="md-sidenav-left sidebar override-shadow"
+              md-component-id="left"
+              md-is-locked-open="true"
+              md-whiteframe="4"
+            >
+              <md-toolbar class="md-primary">
+                <h1 class="md-toolbar-tools app-title sidebar-content">
+                  Latiumtify
+                </h1>
+              </md-toolbar>
+              <md-content layout-padding class="sidebar-content">
+                <md-button
+                  class="left-sidenav-button"
+                  ng-click="getAllSongsInit()"
+                >
+                  <md-icon md-font-library="material-icons">music_note</md-icon>
+                  Browse Songs
+                </md-button>
+
+                <md-subheader class="md-no-sticky">Playlists</md-subheader>
+                <md-list ng-init="getAllPlaylists()" flex class="playlist-list">
+                  <md-list-item
+                    class="md-3-line"
+                    ng-repeat="playlist in Playlists"
+                    ng-click="updateSongs(playlist.songs,playlist.id)"
+                  >
+                    <div class="md-list-item-text" layout="column">
+                      <h3>{{playlist.playlistName}}</h3>
+                    </div>
+                    <md-divider></md-divider>
+                  </md-list-item>
+                </md-list>
+                <md-button class="md-fab md-primary md-hue-2 add-playlist-button" aria-label="Profile" ng-click="showNewPlaylistNameMenu($event)">
+                  <md-icon md-font-library="material-icons">add</md-icon>
+              </md-content>
+            </md-sidenav>
+          </div>
+
+          <md-content flex>
+            <div ng-controller="MainPageCont">
+              <main flex>
+                <div layout="column" layout-align="top center">
+                  <div class="mainpage-top-alignment">
+                    <md-card class="mainpage-top-card override-shadow">
+                      <md-card-content class="mainpage-top-content">
+                        <h1 class="app-title">Main Page</h1>
+                      </md-card-content>
+                    </md-card>
+                  </div>
+                  <md-virtual-repeat-container class="vertical-container">
+                    <div
+                     ng-model = "Songs"
+                      md-virtual-repeat="song in Songs"
+                      class="songs-alignment"
+                      ng-init="getAllSongsInit(); getAllPlaylists();"
+                    >
+                      <div class="song-div">
+                        <md-card class="song-card">
+                          <md-card-content class="song-content">
+                            <div>
+                              <md-button
+                                ng-controller="MusicPlayerCont"
+                                class="md-icon-button"
+                                ng-click="playSong(song.songName,0);"
+                              >
+                                <md-icon
+                                  ><i class="material-icons"
+                                    >play_arrow</i
+                                  ></md-icon
+                                >
+                              </md-button>
+                              <span>{{ song.songName }}</span>
+                            </div>
+                            <div>
+                              <md-menu-bar>
+                                <md-menu>
+                                  <md-button
+                                    ng-controller="MusicPlayerCont"
+                                    class="md-icon-button"
+                                    ng-click="openMenu($mdMenu, $event)"
+                                  >
+                                    <md-icon
+                                      ><i class="material-icons"
+                                        >more_horiz</i
+                                      ></md-icon
+                                    >
+                                  </md-button>
+                                  <md-menu-content width="4">
+                                    <md-menu-item>
+                                      <md-menu>
+                                        <md-button
+                                          ng-click="openMenu($mdMenu, $event)"
+                                        >
+                                          <md-icon
+                                            ><i class="material-icons"
+                                              >playlist_add</i
+                                            ></md-icon
+                                          >
+                                          Add To Playlist
+                                        </md-button>
+                                        <md-menu-content width="4">
+                                          <md-menu-item
+                                            ng-repeat="playlist in Playlists"
+                                          >
+                                            <md-button
+                                              ng-click="addSongToPlaylist(playlist.id,song.songName);"
+                                            >
+                                              {{playlist.playlistName}}
+                                            </md-button>
+                                          </md-menu-item>
+                                        </md-menu-content>
+                                      </md-menu>
+                                    </md-menu-item>
+                                    <md-menu-item
+                                      ng-if="CurrentPlaylist"
+                                    >
+                                      <md-button
+                                        ng-click="removeFromPlaylist(song.songName)"
+                                      >
+                                        <md-icon
+                                          ><i class="material-icons"
+                                            >remove_circle_outline</i
+                                          ></md-icon
+                                        >
+                                        Remove From Playlist
+                                      </md-button>
+                                    </md-menu-item>
+                                  </md-menu-content>
+                                </md-menu>
+                              </md-menu-bar>
+                            </div>
+                          </md-card-content>
+                        </md-card>
+                      </div>
+                    </div>
+                  </md-virtual-repeat-container>
+                </div>
+              </main>
+            </div>
+          </md-content>
+        </section>
+
+        <footer>
+          <md-toolbar class="md-accent md-medium-tall media-toolbar">
+            <div class="media-footer" ng-controller="MusicPlayerCont">
+              <div class="audio-control-panel">
+                <md-button class="md-icon-button" ng-click="playNext(-1)">
+                  <md-icon
+                    ><i class="material-icons"> skip_previous </i></md-icon
+                  >
+                </md-button>
+                <md-button
+                  ng-model="isPlaying()"
+                  class="md-icon-button"
+                  ng-click=" resumOrPauseSong();"
+                  ng-switch="isPlaying()"
+                >
+                  <md-icon
+                    ng-switch-when="false"
+                    md-font-library="material-icons"
+                    >play_circle_outline</md-icon
+                  >
+                  <md-icon
+                    ng-switch-when="true"
+                    md-font-library="material-icons"
+                    >pause_circle_outline</md-icon
+                  >
+                </md-button>
+                <md-button class="md-icon-button" ng-click="playNext(1)">
+                  <md-icon><i class="material-icons">skip_next</i></md-icon>
+                </md-button>
+              </div>
+              <div class="audio-time-footer">
+                {{timeToTimeString(ctime)}}
+                <md-slider
+                  ng-model="ctime"
+                  min="0.0"
+                  max="{{ songDuration(false) }}"
+                  step="0.1"
+                  ng-mousedown="stopTime = true;"
+                  ng-mouseup="changeTime()"
+                  class="md-primary slider"
+                >
+                </md-slider>
+                <div>
+                  {{songDuration(true)}}
+                </div>
+              </div>
+            </div>
+          </md-toolbar>
+        </footer>
+      </md-content>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "LatiumtifyServer_DL/1.0.0": {
+        "dependencies": {
+          "LatiumtifyServer_Commons": "1.0.0"
+        },
+        "runtime": {
+          "LatiumtifyServer_DL.dll": {}
+        }
+      },
+      "LatiumtifyServer_Commons/1.0.0": {
+        "runtime": {
+          "LatiumtifyServer_Commons.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "LatiumtifyServer_DL/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "LatiumtifyServer_Commons/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

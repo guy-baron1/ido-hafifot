@@ -1,0 +1,9 @@
+C:\Projects\Hafifot\MusicPlayer\LatiumtifyServerSide\LatiumtifyServer_Commons\bin\Debug\netcoreapp3.1\LatiumtifyServer_Commons.deps.json
+C:\Projects\Hafifot\MusicPlayer\LatiumtifyServerSide\LatiumtifyServer_Commons\bin\Debug\netcoreapp3.1\LatiumtifyServer_Commons.dll
+C:\Projects\Hafifot\MusicPlayer\LatiumtifyServerSide\LatiumtifyServer_Commons\bin\Debug\netcoreapp3.1\LatiumtifyServer_Commons.pdb
+C:\Projects\Hafifot\MusicPlayer\LatiumtifyServerSide\LatiumtifyServer_Commons\obj\Debug\netcoreapp3.1\LatiumtifyServer_Commons.csprojAssemblyReference.cache
+C:\Projects\Hafifot\MusicPlayer\LatiumtifyServerSide\LatiumtifyServer_Commons\obj\Debug\netcoreapp3.1\LatiumtifyServer_Commons.csproj.CoreCompileInputs.cache
+C:\Projects\Hafifot\MusicPlayer\LatiumtifyServerSide\LatiumtifyServer_Commons\obj\Debug\netcoreapp3.1\LatiumtifyServer_Commons.AssemblyInfoInputs.cache
+C:\Projects\Hafifot\MusicPlayer\LatiumtifyServerSide\LatiumtifyServer_Commons\obj\Debug\netcoreapp3.1\LatiumtifyServer_Commons.AssemblyInfo.cs
+C:\Projects\Hafifot\MusicPlayer\LatiumtifyServerSide\LatiumtifyServer_Commons\obj\Debug\netcoreapp3.1\LatiumtifyServer_Commons.dll
+C:\Projects\Hafifot\MusicPlayer\LatiumtifyServerSide\LatiumtifyServer_Commons\obj\Debug\netcoreapp3.1\LatiumtifyServer_Commons.pdb
